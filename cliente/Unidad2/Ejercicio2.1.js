@@ -100,6 +100,6 @@ y el cuádruple del número que habíamos introducido (cada uno en una línea)*/
         a= prompt('Escribe la base:');
         b= prompt('Escribe la altura:');
         alert('Area= ' + (a*b/2));
-        //area
+        //area de una patata
         
     }
