@@ -101,5 +101,29 @@ y el cuádruple del número que habíamos introducido (cada uno en una línea)*/
         b= prompt('Escribe la altura:');
         alert('Area= ' + (a*b/2));
         //area de una patata
-        
     }
+        function Ejercicio52(){
+            let numero = prompt('Introduce un número en base 10: ','');
+            let base = prompt('Introduce una base (2-9)', '');
+            numero = parseInt(numero);
+            base = parseInt(base);
+            if (isNaN(numero) || numero<1)
+                alert('El número introducido no es correcto');
+            else if(isNaN(base)|| base<2 || base>9)
+                alert('El número introducido como base no es correcto')
+            else{
+                let c = numero;
+                let r;
+                let res='';
+                while(c>=base){
+                    r = c % base;
+                    c = c / base;
+                    c =parseInt(c);
+                    res = String(r) + res;
+                }
+                res = String(c) +res;
+                document.write("El número ", numero, " en base ", base, " es ", res);
+            }
+        }
+        
+    
