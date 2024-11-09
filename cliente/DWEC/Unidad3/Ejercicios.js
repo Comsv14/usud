@@ -182,12 +182,48 @@ operador, realice el cálculo. */
             break;
     }
     document.write(num1, operacion, num2, " = "+resultado);
-
-
-
-
-    
 }
+function ejercicio12(){
+    /*Realiza un ejercicio mediante funciones y trabajando con el objeto Date, que muestre por pantalla: 
+La fecha actual 
+La fecha del fin del mundo maya (21/11/2012) 
+El número de días o el número de segundos que han pasado de esa fecha. */
+    const fechaActual = new Date();
+    document.write("La fecha de hoy: ", fechaActual, "<br>");
+    const fechaMaya = new Date(2012, 11, 21);
+    document.write("La fecha del fin del mundo maya: ", fechaMaya, "<br>");
+    const diferenciaMilisengundos = fechaActual-fechaMaya;
+    const diasPasados = diferenciaMilisengundos /(1000*60*60*24);
+    document.write("Han pasado: ", Math.round(diasPasados), " dias. <br>");
+    const segundosPasados = diferenciaMilisengundos/1000;
+    document.write("Han pasado: ", Math.round(segundosPasados), " segundos. <br>");
+
+}
+/* function mostrarFechas() {
+    // Paso 1: Obtener la fecha de hoy
+    const fechaActual = new Date();  // Esto crea una nueva fecha con el día y hora actuales
+    console.log("Fecha actual:", fechaActual);  // Muestra la fecha actual en la consola
+
+    // Paso 2: Crear la fecha del "fin del mundo maya" (21 de diciembre de 2012)
+    const fechaFinMundoMaya = new Date("2012-12-21");  // Esto crea una fecha específica
+    console.log("Fecha del fin del mundo maya:", fechaFinMundoMaya);  // Muestra esa fecha en la consola
+
+    // Paso 3: Calcular la diferencia en milisegundos entre la fecha actual y la del fin del mundo maya
+    const diferenciaMilisegundos = fechaActual - fechaFinMundoMaya;  // Resta ambas fechas
+
+    // Paso 4: Convertir la diferencia en días
+    const diasPasados = diferenciaMilisegundos / (1000 * 60 * 60 * 24);  // Dividimos para obtener días
+    console.log("Días pasados desde el fin del mundo maya:", Math.round(diasPasados));  // Muestra los días
+
+    // Paso 5: Convertir la diferencia en segundos
+    const segundosPasados = diferenciaMilisegundos / 1000;  // Dividimos para obtener segundos
+    console.log("Segundos pasados desde el fin del mundo maya:", Math.round(segundosPasados));  // Muestra los segundos
+}
+
+// Llamar a la función para ver los resultados
+mostrarFechas();
+*/
+
 
 
 
