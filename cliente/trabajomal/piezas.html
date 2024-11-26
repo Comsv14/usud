@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Piezas - MaderAvilés</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Gestión de Piezas - MaderAvilés</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Pedidos</a></li>
+                <li><a href="piezas.html">Piezas</a></li>
+                <li><a href="detalle.html">Detalle de Pedido</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="piezas">
+            <h2>Gestionar Piezas</h2>
+            <form id="form-pieza">
+                <label for="numero-pieza">Número de Pieza:</label>
+                <input type="number" id="numero-pieza" required>
+
+                <label for="pedido-asociado">Número de Pedido:</label>
+                <input type="number" id="pedido-asociado" required>
+
+                <label for="largo">Largo (cm):</label>
+                <input type="number" id="largo" required>
+
+                <label for="ancho">Ancho (cm):</label>
+                <input type="number" id="ancho" required>
+
+                <label for="grosor">Grosor (cm):</label>
+                <input type="number" id="grosor" required>
+
+                <label for="color">Color:</label>
+                <input type="text" id="color" value="Natural">
+
+                <label for="ambas-caras">¿Chapeadas ambas caras?</label>
+                <input type="checkbox" id="ambas-caras">
+
+                <label for="cortada">¿Cortada?</label>
+                <input type="checkbox" id="cortada">
+
+                <button type="submit">Guardar Pieza</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 MaderAvilés. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -3,97 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Carpintería MaderAvilés</title>
+    <title>MaderAvilés - Gestión de Pedidos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Menú de navegación fijo -->
+    <nav class="navbar">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="mostrarPedidos()">Pedidos</a></li>
+            <li><a href="javascript:void(0);" onclick="mostrarDetalles()">Detalles del Pedido</a></li>
+        </ul>
+    </nav>
 
-    <header>
-        <h1>Bienvenido a MaderAvilés</h1>
-        <nav>
-            <ul>
-                <li><a href="#pedidos">Gestión de Pedidos</a></li>
-                <li><a href="#piezas">Gestión de Piezas</a></li>
-                <li><a href="#detalle">Detalle de Pedido</a></li>
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <h1>Gestión de Pedidos de MaderAvilés</h1>
 
-    <main>
-        <!-- Gestión de Pedidos -->
-        <section id="pedidos">
-            <h2>Gestionar Pedidos</h2>
-            <form id="form-pedido">
-                <label for="numero-pedido">Número de Pedido:</label>
-                <input type="number" id="numero-pedido" required>
-
-                <label for="cliente">Cliente:</label>
-                <input type="text" id="cliente" maxlength="50" required>
-
-                <label for="fecha-pedido">Fecha de Pedido:</label>
-                <input type="date" id="fecha-pedido" required>
-
-                <label for="procesado">¿Procesado?</label>
-                <input type="checkbox" id="procesado">
-
-                <label for="servido">¿Servido?</label>
-                <input type="checkbox" id="servido">
-
-                <button type="submit">Guardar Pedido</button>
+        <!-- Sección de Pedidos -->
+        <div id="seccion-pedidos" class="section-content">
+            <h2>Registrar Pedido</h2>
+            <form id="form-pedido" class="form">
+                <div class="form-group">
+                    <label for="numero-pedido">Número de Pedido:</label>
+                    <input type="number" id="numero-pedido" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <input type="text" id="cliente" class="form-control" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha-pedido">Fecha de Pedido:</label>
+                    <input type="date" id="fecha-pedido" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="procesado">Procesado:</label>
+                    <input type="checkbox" id="procesado">
+                </div>
+                <div class="form-group">
+                    <label for="servido">Servido:</label>
+                    <input type="checkbox" id="servido">
+                </div>
+                <button type="submit" class="btn">Guardar Pedido</button>
             </form>
-        </section>
+        </div>
 
-        <!-- Gestión de Piezas -->
-        <section id="piezas">
-            <h2>Gestionar Piezas</h2>
-            <form id="form-pieza">
-                <label for="numero-pieza">Número de Pieza:</label>
-                <input type="number" id="numero-pieza" required>
-
-                <label for="pedido-asociado">Número de Pedido:</label>
-                <input type="number" id="pedido-asociado" required>
-
-                <label for="largo">Largo (cm):</label>
-                <input type="number" id="largo" required>
-
-                <label for="ancho">Ancho (cm):</label>
-                <input type="number" id="ancho" required>
-
-                <label for="grosor">Grosor (cm):</label>
-                <input type="number" id="grosor" required>
-
-                <label for="color">Color:</label>
-                <input type="text" id="color" value="Natural">
-
-                <label for="ambas-caras">¿Chapeadas ambas caras?</label>
-                <input type="checkbox" id="ambas-caras">
-
-                <label for="cortada">¿Cortada?</label>
-                <input type="checkbox" id="cortada">
-
-                <button type="submit">Guardar Pieza</button>
+        <!-- Sección de Detalles de Pedido -->
+        <div id="seccion-detalles" class="section-content">
+            <h2>Detalles del Pedido</h2>
+            <form id="form-detalle" class="form">
+                <div class="form-group">
+                    <label for="numero-pedido-detalle">Número de Pedido:</label>
+                    <input type="number" id="numero-pedido-detalle" class="form-control" required>
+                </div>
+                <button type="submit" class="btn">Mostrar Detalles</button>
             </form>
-        </section>
 
-        <!-- Detalle de Pedido -->
-        <section id="detalle">
-            <h2>Detalle de Pedido</h2>
-            <form id="form-detalle">
-                <label for="numero-pedido-detalle">Número de Pedido:</label>
-                <input type="number" id="numero-pedido-detalle" required>
-
-                <button type="submit">Ver Detalle</button>
-            </form>
             <table id="tabla-detalle">
-                <!-- Se llenará dinámicamente con JavaScript -->
+                <!-- Los detalles del pedido se insertarán aquí -->
             </table>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 MaderAvilés. Todos los derechos reservados.</p>
-    </footer>
+        </div>
+    </div>
 
     <script src="script.js"></script>
+    <script>
+        // Función para mostrar la sección de pedidos
+        function mostrarPedidos() {
+            document.getElementById('seccion-pedidos').style.display = 'block';
+            document.getElementById('seccion-detalles').style.display = 'none';
+        }
+
+        // Función para mostrar la sección de detalles
+        function mostrarDetalles() {
+            document.getElementById('seccion-pedidos').style.display = 'none';
+            document.getElementById('seccion-detalles').style.display = 'block';
+        }
+
+        // Mostrar por defecto la sección de pedidos
+        mostrarPedidos();
+    </script>
 </body>
 </html>

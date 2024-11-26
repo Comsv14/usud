@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Pedido - MaderAvilés</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Detalles del Pedido</h1>
+
+        <!-- Menú de navegación -->
+        <nav>
+            <ul>
+                <li><a href="index.html">Pedidos</a></li>
+                <li><a href="detalle.html">Detalles del Pedido</a></li>
+            </ul>
+        </nav>
+
+        <form id="form-detalle">
+            <div>
+                <label for="numero-pedido-detalle">Número de Pedido:</label>
+                <input type="number" id="numero-pedido-detalle" required>
+            </div>
+            <button type="submit">Mostrar Detalles</button>
+        </form>
+
+        <table id="tabla-detalle">
+            <!-- Los detalles del pedido se insertarán aquí -->
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
