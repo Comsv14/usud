@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Carpintería MaderAvilés</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a MaderAvilés</h1>
+        <nav>
+            <ul>
+                <li><a href="#pedidos">Gestión de Pedidos</a></li>
+                <li><a href="#piezas">Gestión de Piezas</a></li>
+                <li><a href="#detalle">Detalle de Pedido</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Gestión de Pedidos -->
+        <section id="pedidos">
+            <h2>Gestionar Pedidos</h2>
+            <form id="form-pedido">
+                <label for="numero-pedido">Número de Pedido:</label>
+                <input type="number" id="numero-pedido" required>
+
+                <label for="cliente">Cliente:</label>
+                <input type="text" id="cliente" maxlength="50" required>
+
+                <label for="fecha-pedido">Fecha de Pedido:</label>
+                <input type="date" id="fecha-pedido" required>
+
+                <label for="procesado">¿Procesado?</label>
+                <input type="checkbox" id="procesado">
+
+                <label for="servido">¿Servido?</label>
+                <input type="checkbox" id="servido">
+
+                <button type="submit">Guardar Pedido</button>
+            </form>
+        </section>
+
+        <!-- Gestión de Piezas -->
+        <section id="piezas">
+            <h2>Gestionar Piezas</h2>
+            <form id="form-pieza">
+                <label for="numero-pieza">Número de Pieza:</label>
+                <input type="number" id="numero-pieza" required>
+
+                <label for="pedido-asociado">Número de Pedido:</label>
+                <input type="number" id="pedido-asociado" required>
+
+                <label for="largo">Largo (cm):</label>
+                <input type="number" id="largo" required>
+
+                <label for="ancho">Ancho (cm):</label>
+                <input type="number" id="ancho" required>
+
+                <label for="grosor">Grosor (cm):</label>
+                <input type="number" id="grosor" required>
+
+                <label for="color">Color:</label>
+                <input type="text" id="color" value="Natural">
+
+                <label for="ambas-caras">¿Chapeadas ambas caras?</label>
+                <input type="checkbox" id="ambas-caras">
+
+                <label for="cortada">¿Cortada?</label>
+                <input type="checkbox" id="cortada">
+
+                <button type="submit">Guardar Pieza</button>
+            </form>
+        </section>
+
+        <!-- Detalle de Pedido -->
+        <section id="detalle">
+            <h2>Detalle de Pedido</h2>
+            <form id="form-detalle">
+                <label for="numero-pedido-detalle">Número de Pedido:</label>
+                <input type="number" id="numero-pedido-detalle" required>
+
+                <button type="submit">Ver Detalle</button>
+            </form>
+            <table id="tabla-detalle">
+                <!-- Se llenará dinámicamente con JavaScript -->
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 MaderAvilés. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
