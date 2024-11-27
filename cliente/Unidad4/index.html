@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,7 @@
 <body>
   <h1>Registro y Búsqueda de Pedidos</h1>
 
-  <form id="pedidoForm">
+  <form id="pedidoForm" onsubmit="guardarPedido(event)">
     <label for="id">ID del Pedido:</label>
     <input type="number" id="id" required><br><br>
     
@@ -24,7 +24,7 @@
   <h2>Buscar Pedido</h2>
   <label for="buscarId">ID del Pedido:</label>
   <input type="number" id="buscarId">
-  <button id="buscarBtn">Buscar</button>
+  <button onclick="buscarPedido()">Buscar</button>
 
   <h3>Resultado:</h3>
   <div id="resultado"></div>
