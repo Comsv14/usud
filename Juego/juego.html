@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Shooter en Primera Persona</title>
+    <link rel="icon" href="tu_logo.png" type="image/png"> <!-- Icono en la pestaña -->
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #crosshair {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            transform: translate(-50%, -50%);
+            pointer-events: none; /* No bloquear eventos de mouse */
+        }
+        #crosshair::before, #crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: red; /* Color de la cruceta */
+        }
+        #crosshair::before {
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+        }
+        #crosshair::after {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 2px;
+            width: 100%;
+        }
+        #pauseMenu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 20px;
+            display: none;
+            text-align: center;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        #scoreBoard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-size: 20px;
+        }
+        #timer {
+            position: absolute;
+            top: 10px; /* Ajustado para estar al mismo nivel que el marcador de puntos */
+            left: 120px; /* Ajustado para estar al lado del marcador de puntos */
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div id="crosshair"></div> <!-- Cruceta roja como mira -->
+    <div id="pauseMenu">
+        <h2>Menú de Pausa</h2>
+        <label for="sensitivityRange">Ajustar Sensibilidad:</label>
+        <input type="range" id="sensitivityRange" min="0.0001" max="0.01" step="0.0001" value="0.001">
+        <br>
+        <button id="resumeButton">Reanudar</button>
+    </div>
+    <div id="scoreBoard">Puntos: 0</div> <!-- Marcador de puntos -->
+    <div id="timer">Tiempo: 0</div> <!-- Contador de tiempo -->
+    <script>
+        // Escena y cámara
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // Renderizador
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Fondo
+        scene.background = new THREE.Color(0x87CEEB); // Azul cielo
+
+        // Suelo
+        const floorTexture = new THREE.TextureLoader().load('https://cdn.pixabay.com/photo/2013/07/12/18/42/tile-73144_960_720.png');
+        const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
+        const floorGeometry = new THREE.PlaneGeometry(200, 200);
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2;
+        scene.add(floor);
+
+        // Enemigos
+        const enemies = [];
+        let score = 0; // Puntuación
+        let timeElapsed = 0; // Tiempo transcurrido
+        let isPaused = false; // Estado de pausa
+        let spawnInterval; // Variable para almacenar el intervalo de spawn
+        const bullets = []; // Array para las balas
+
+        function createEnemy() {
+            const enemyGroup = new THREE.Group();
+            const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Verde
+
+            // Cuerpo del enemigo
+            const torso = new THREE.Mesh(new THREE.BoxGeometry(0.5, 1, 0.3), bodyMaterial);
+            torso.position.y = 1;
+            enemyGroup.add(torso);
+
+            // Cabeza
+            const head = new THREE.Mesh(new THREE.SphereGeometry(0.3, 32, 32), bodyMaterial);
+            head.position.y = 2;
+            enemyGroup.add(head);
+
+            // Ojos
+            const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const leftEye = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), eyeMaterial);
+            leftEye.position.set(-0.1, 2.05, 0.15);
+            const rightEye = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 16), eyeMaterial);
+            rightEye.position.set(0.1, 2.05, 0.15);
+            enemyGroup.add(leftEye);
+            enemyGroup.add(rightEye);
+
+            // Boca enfadada
+            const mouthShape = new THREE.Shape();
+            mouthShape.moveTo(-0.1, 0);
+            mouthShape.lineTo(0, -0.1);
+            mouthShape.lineTo(0.1, 0);
+            const mouthGeometry = new THREE.ShapeGeometry(mouthShape);
+            const mouthMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+            const mouth = new THREE.Mesh(mouthGeometry, mouthMaterial);
+            mouth.rotation.x = -Math.PI / 2;
+            mouth.position.y = 1.9;
+            enemyGroup.add(mouth);
+
+            // Brazos
+            const leftArm = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.8, 0.2), bodyMaterial);
+            leftArm.position.set(-0.4, 1, 0);
+            leftArm.rotation.z = Math.PI / 4;
+            enemyGroup.add(leftArm);
+
+            const rightArm = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.8, 0.2), bodyMaterial);
+            rightArm.position.set(0.4, 1, 0);
+            rightArm.rotation.z = -Math.PI / 4;
+            enemyGroup.add(rightArm);
+
+            // Piernas
+            const leftLeg = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1, 0.2), bodyMaterial);
+            leftLeg.position.set(-0.15, 0, 0);
+            enemyGroup.add(leftLeg);
+
+            const rightLeg = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1, 0.2), bodyMaterial);
+            rightLeg.position.set(0.15, 0, 0);
+            enemyGroup.add(rightLeg);
+
+            enemies.push(enemyGroup);
+            scene.add(enemyGroup);
+            return enemyGroup;
+        }
+
+        function spawnEnemy() {
+            const enemy = createEnemy();
+            enemy.position.set(Math.random() * 20 - 10, 0, Math.random() * -20 - 5);
+        }
+
+        // Posición inicial de la cámara
+        camera.position.set(0, 1.6, 0);
+        let pitch = 0; // Para controlar la rotación vertical
+
+        // Movimiento de la cámara
+        const keyboard = {};
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Escape') {
+                toggleMenu();
+            }
+            keyboard[event.code] = true;
+        });
+        document.addEventListener('keyup', (event) => {
+            keyboard[event.code] = false;
+        });
+
+        function moveCamera() {
+            const speed = 0.1; // Ajusta la velocidad de movimiento aquí
+            const direction = new THREE.Vector3();
+            if (keyboard['KeyW']) {
+                camera.getWorldDirection(direction);
+                camera.position.addScaledVector(direction, speed);
+            }
+            if (keyboard['KeyS']) {
+                camera.getWorldDirection(direction);
+                camera.position.addScaledVector(direction, -speed);
+            }
+            if (keyboard['KeyA']) {
+                camera.getWorldDirection(direction);
+                direction.cross(camera.up);
+                camera.position.addScaledVector(direction, -speed);
+            }
+            if (keyboard['KeyD']) {
+                camera.getWorldDirection(direction);
+                direction.cross(camera.up);
+                camera.position.addScaledVector(direction, speed);
+            }
+
+            // Limitar la posición vertical para mantener al jugador en el suelo
+            camera.position.y = 1.6; // Mantener altura constante
+        }
+
+        // Disparar proyectiles
+        function shoot() {
+            const bulletGeometry = new THREE.SphereGeometry(0.05, 8, 8);
+            const bulletMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+            const bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
+            bullet.position.copy(camera.position);
+            scene.add(bullet);
+            bullet.userData = { direction: new THREE.Vector3() };
+            camera.getWorldDirection(bullet.userData.direction);
+            bullets.push(bullet); // Almacenar la bala en el array
+            // Aumentar la velocidad de la bala
+    //bullet.userData.direction.multiplyScalar(2); // Cambia 2 a cualquier valor mayor que desees
+
+        }
+        
+
+        document.addEventListener('mousedown', (event) => {
+            if (event.button === 0 && !isPaused) {
+                shoot();
+            }
+        });
+
+        // Comprobación de colisiones
+        function checkCollisions() {
+            bullets.forEach((bullet, bulletIndex) => {
+                enemies.forEach((enemy, enemyIndex) => {
+                    const torsoPosition = enemy.position.clone();
+                    torsoPosition.y += 1; // Ajustar posición para el torso
+
+                    const headPosition = enemy.position.clone();
+                    headPosition.y += 2; // Ajustar posición para la cabeza
+
+                    const distanceToTorso = bullet.position.distanceTo(torsoPosition);
+                    const distanceToHead = bullet.position.distanceTo(headPosition);
+                    
+                    if (distanceToTorso < 0.5) {
+                        // Colisión con el torso
+                        scene.remove(bullet);
+                        bullets.splice(bulletIndex, 1);
+                        scene.remove(enemy);
+                        enemies.splice(enemyIndex, 1);
+                        score += 10; // Sumar puntos por torso
+                    } else if (distanceToHead < 0.3) {
+                        // Colisión con la cabeza
+                        scene.remove(bullet);
+                        bullets.splice(bulletIndex, 1);
+                        scene.remove(enemy);
+                        enemies.splice(enemyIndex, 1);
+                        score += 50; // Sumar puntos por cabeza
+                    }
+                });
+            });
+        }
+
+        // Animación
+        function animate() {
+            requestAnimationFrame(animate);
+            if (!isPaused) {
+                moveCamera();
+                checkCollisions();
+                bullets.forEach((bullet, index) => {
+                    bullet.position.add(bullet.userData.direction.clone().multiplyScalar(0.5));
+                    if (bullet.position.length() > 1000) {
+                        scene.remove(bullet);
+                        bullets.splice(index, 1);
+                    }
+                });
+
+                // Actualizar el contador de tiempo
+                timeElapsed += 0.016; // Aumentar tiempo por el intervalo de animación
+                document.getElementById('timer').innerText = `Tiempo: ${Math.floor(timeElapsed)}`; // Mostrar tiempo
+
+                // Actualizar la puntuación
+                document.getElementById('scoreBoard').innerText = `Puntos: ${score}`; // Mostrar puntuación
+            }
+            renderer.render(scene, camera);
+        }
+
+        // Función para iniciar el spawn de enemigos
+        function startSpawningEnemies() {
+            spawnInterval = setInterval(spawnEnemy, 2000);
+        }
+
+        // Generar enemigos al inicio
+        startSpawningEnemies();
+        animate();
+
+        // Control del ratón
+        let isMouseLocked = false;
+        document.body.addEventListener('click', () => {
+            if (!isMouseLocked) {
+                document.body.requestPointerLock();
+            }
+        });
+
+        document.addEventListener('pointerlockchange', () => {
+            isMouseLocked = document.pointerLockElement === document.body;
+        });
+
+        // Ajuste de sensibilidad
+        let sensitivity = 0.001; // Sensibilidad ajustada
+        const sensitivityRange = document.getElementById('sensitivityRange');
+
+        sensitivityRange.addEventListener('input', () => {
+            sensitivity = parseFloat(sensitivityRange.value);
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            if (isMouseLocked && !isPaused) {
+                camera.rotation.y -= event.movementX * sensitivity;
+
+                // Limitar la rotación vertical
+                pitch -= event.movementY * sensitivity;
+                pitch = Math.max(-Math.PI / 4, Math.min(Math.PI / 4, pitch)); // Limitar entre -45 y 45 grados
+                camera.rotation.x = pitch;
+            }
+        });
+
+        // Redimensionar el renderizador
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Función para pausar y reanudar el juego
+        function toggleMenu() {
+            isPaused = !isPaused;
+            document.getElementById('pauseMenu').style.display = isPaused ? 'block' : 'none';
+            if (isPaused) {
+                // Detener la creación de enemigos
+                clearInterval(spawnInterval);
+            } else {
+                // Reanudar la creación de enemigos
+                startSpawningEnemies();
+            }
+        }
+
+        // Evento de reanudar
+        document.getElementById('resumeButton').addEventListener('click', toggleMenu);
+    </script>
+</body>
+</html>
+

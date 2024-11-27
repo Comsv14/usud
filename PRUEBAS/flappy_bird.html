@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #70c5ce; margin: 0; }
+        canvas { border: 2px solid #000; background-color: #fff; }
+    </style>
+</head>
+<body>
+    <canvas id="flappyBird" width="400" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('flappyBird');
+        const ctx = canvas.getContext('2d');
+
+        const bird = { x: 50, y: 150, width: 30, height: 30, gravity: 0.5, lift: -7, velocity: 0 };
+        const pipes = [];
+        let frame = 0;
+        let score = 0;
+        const pipeWidth = 50;
+        const pipeGap = 160; // Aumentado el espacio entre tuberías
+
+        const addPipe = () => {
+            const height = Math.random() * (canvas.height - pipeGap - 40) + 20;
+            pipes.push({ x: canvas.width, y: height });
+        };
+
+        const drawBird = () => {
+            ctx.fillStyle = 'yellow';
+            ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+        };
+
+        const drawPipes = () => {
+            ctx.fillStyle = 'green';
+            pipes.forEach(pipe => {
+                ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);
+                ctx.fillRect(pipe.x, pipe.y + pipeGap, pipeWidth, canvas.height);
+            });
+        };
+
+        const update = () => {
+            bird.velocity += bird.gravity;
+            bird.y += bird.velocity;
+
+            if (bird.y + bird.height >= canvas.height) {
+                resetGame();
+            }
+
+            pipes.forEach(pipe => {
+                pipe.x -= 2;
+                if (pipe.x + pipeWidth < 0) {
+                    pipes.splice(pipes.indexOf(pipe), 1);
+                    score++;
+                }
+            });
+
+            if (pipes.length > 0 && bird.x + bird.width > pipes[0].x && bird.x < pipes[0].x + pipeWidth) {
+                if (bird.y < pipes[0].y || bird.y + bird.height > pipes[0].y + pipeGap) {
+                    resetGame();
+                }
+            }
+        };
+
+        const resetGame = () => {
+            bird.y = 150;
+            bird.velocity = 0;
+            pipes.length = 0;
+            score = 0;
+        };
+
+        document.addEventListener('keydown', () => {
+            bird.velocity = bird.lift;
+        });
+
+        const drawScore = () => {
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('Score: ' + score, 10, 20);
+        };
+
+        const gameLoop = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBird();
+            drawPipes();
+            drawScore();
+            update();
+
+            if (frame % 90 === 0) addPipe();
+            frame++;
+
+            requestAnimationFrame(gameLoop);
+        };
+
+        gameLoop();
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<html>
+<head>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+}
+
+.menu { 
+    background-color: #005f54; 
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.menu ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.menu ul li:last-child {
+    margin-right: 0;
+}
+
+.menu ul li a {
+    color: #ffffff; 
+    text-decoration: none;
+    padding: 10px 20px;
+    display: block;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.menu ul li a:hover {
+    transform: translateY(3px);
+    background-color: #00352F;
+}
+
+body {
+    background: linear-gradient(#4D706C, #384B49);
+}
+
+/* FUENTE EN LOS H */
+h1, h2, h4 {
+    font-family: Georgia, sans-serif;
+    text-shadow: 2px 2px 4px #4D706C, -2px -2px 4px #00352F;
+    text-align: center;
+    font-size: 2em; 
+}
+
+/* FORMULARIOS */
+.pregunta {
+    text-align: center;
+    box-shadow: 10px 5px 5px #0D4F48;
+    width: 100%;
+}
+
+.encuesta {
+    float: right;
+    background-color: #42847D;
+    box-shadow: 10px 5px 5px #00352F;
+    border-radius: 4px;
+    width: 300px;
+    margin: 2%;
+    padding: 2%;
+}
+
+.encuesta input {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.encuesta form {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.encuesta textarea {
+    width: 100%; 
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; 
+}
+
+/* .texto con texto principal pagina */
+.texto {
+    display: block;
+    width: 65%;
+    margin: 2%;
+    padding: 20px; 
+    background-color: #006f5b; 
+    color: #ffffff; 
+    border: 1px solid #42847D;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);     
+}
+
+.texto p {
+    margin-bottom: 20px; 
+    font-size: 1.2em; 
+}
+
+.texto h1 {
+    text-align: center;
+}
+
+/* Media */
+@media (max-width: 768px) {
+    .texto {
+        width: 90%; 
+    }
+
+    .encuesta {
+        width: 90%; 
+    }
+}
+
+#medioambiente {
+    display: block;
+    margin: 20px auto; 
+    max-width: 100%; 
+    height: auto; 
+}
+footer{
+    color: white;
+   text-align: center;
+   width: 100%;
+}
+    </style>
+</html>

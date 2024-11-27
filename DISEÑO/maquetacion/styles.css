@@ -1,0 +1,99 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+.header {
+    background-color: #3b4a5b;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    color: #ffffff;
+}
+
+.logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.logo h1 {
+    display: inline;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+    padding: 0 15px;
+}
+
+.nav a:hover {
+    color: #ff6347;
+}
+
+/* Contenido principal */
+.main-content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.text-content {
+    flex: 2;
+    padding-right: 20px;
+}
+
+.text-content article {
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.footer {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #3b4a5b;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Sección de imágenes */
+.image-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.image-box {
+    background-color: blue;
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+}
+
+/* Footer redes sociales */
+.social-footer {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.social-footer a img {
+    width: 20px;
+    margin: 0 10px;
+}

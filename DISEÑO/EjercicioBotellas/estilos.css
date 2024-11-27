@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    color: #121867;
+    box-sizing: border-box;
+  }
+  
+  nav, .container, footer {
+    /* max-width: 1200px; */
+    min-width: 576px;
+    margin: 0px auto;
+  }
+  
+  nav {
+    /* background-color: #121867; */
+    /* color: rgb(243, 55, 132); */
+    /* position: sticky; */
+    /* overflow-y: auto; */
+    /* top: 8px; */
+    /* z-index: 100; */
+  }
+  
+  nav div {
+    /* float: left; */
+    /* margin-left: 20px; */
+  }

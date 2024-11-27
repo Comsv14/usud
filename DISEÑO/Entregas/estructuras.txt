@@ -1,0 +1,46 @@
+<header></header>
+<main></main>
+<section></section>
+<article></article>
+<aside></aside>
+<div></div>
+<footer></footer>
+
+
+------------------------
+Ejemplo 1.
+<header></header>
+<main></main>
+
+Ejemplo 2.
+<header></header>
+<main></main>
+<footer></footer>
+
+Ejemplo 3.
+<header></header>
+<section></section>
+<aside></aside>
+<footer></footer>
+
+Ejemplo 4.
+<header></header>
+<main></main>
+<aside></aside>
+<footer></footer>
+
+Ejemplo 5.
+<header></header>
+<section></section>
+<main></main>
+<footer></footer>
+
+Ejemplo 6.
+<header></header>
+<main></main>
+<section></section>
+<aside></aside>
+<footer></footer>
+
+Ejemplo 7.
+<header></header>

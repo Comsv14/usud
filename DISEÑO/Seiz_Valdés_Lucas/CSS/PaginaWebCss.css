@@ -1,0 +1,136 @@
+/* ENCABEZADO */
+header {
+    border-radius: 5px 10px 10px 20px;
+    background-image: url(../imagenes_video/fuegoinfernal.png);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+/* BARRA DE NAVEGACION */
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav a {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+}
+/* CUERPO */
+body {
+    background: linear-gradient(to bottom, #333, #666); 
+    color: #fff; 
+}
+/* SECCION */
+section {
+    margin: 20px;
+}
+ .titulo-seccion{
+    text-align: center;
+}
+/* DIVISION DE PAGINA  */
+.division {
+    display: flex;
+    position: relative;
+}
+/* DIVISOR PRIMER PARRAFO */
+.Parrafo {
+    text-align: center;
+    color: white;
+    padding: 10px; 
+    margin: 10px;
+}
+/* DIVISOR SEGUNDO PARRAFO */
+div .Parrafo2 {
+    text-align: center;
+    color: white;
+    border: 2px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+}
+*{
+    text-shadow: 4px 2px 4px rgba(0, 0, 0, 0.5);
+}
+/* CENTRAR CONTENIDO DE LOS H1 H2 H4 */
+h1, h2, h4 {
+    font-family: Georgia, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), -2px -2px 4px rgba(255, 0, 0, 0.5);
+    text-align: center;
+}
+
+/* IMAGENES DE PARRAFO */
+.ImagenesParrafo{
+    width: 540px;
+    height: 540px;
+    max-width: 90%;
+    height: auto;
+    margin-right: 20px;
+}
+/* CENTRAR CONTENIDO CONCIERTOS */
+.centrar {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .centrar ul {
+    padding: 0;
+  }
+  
+  .centrar ul li {
+    margin: 10px 0; 
+  }
+/* SPOTIFY LINKS */
+.spotify {
+    float: right;
+    padding: 20px;  
+    color: #fff ;
+    position: relative;
+    right: 0;
+}
+/* LISTAS Y TABLAS*/
+.tablas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+}
+table{
+    max-width: 100%; 
+    width: auto; 
+}
+th, td {
+    width: 25%;
+    text-align: left;
+    vertical-align: top;
+    border: 1px solid #fff;
+    border-collapse: collapse;
+    padding: 0.3em;
+}
+th{
+    font-weight: bold;
+}
+dl>dt{
+    font-weight: bold;
+}
+a{
+    color: #fff;
+}
+/* FOOTER */
+footer {
+    padding: 10px; 
+    text-align: center; 
+    bottom: 0;
+}
+
+footer p {
+    margin: 0; 
+}
+
+
+
