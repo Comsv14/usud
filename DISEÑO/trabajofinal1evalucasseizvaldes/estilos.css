@@ -4,12 +4,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fff8e1;
-  background-image: url('cabeza.webp'); 
+  background-image: url('fondo1.jpg'); 
   color: #333;
 }
 
 /* ENCABEZADO */
 header {
+  background: url('fondonav.png') no-repeat center center/cover; 
   background-color: #d32f2f;
   color: #fff;
   text-align: center;
@@ -25,6 +26,7 @@ header h1 {
 
 /* MENÚ DE NAVEGACIÓN */
 nav {
+  background-image: url('fondo1.jpg'); 
   background-color: #bf360c;
   text-align: center;
   padding: 10px 0;
