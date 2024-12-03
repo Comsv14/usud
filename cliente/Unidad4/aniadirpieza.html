@@ -1,0 +1,36 @@
+<h2>Detalles del Pedido</h2>
+<form id="detalleForm" onsubmit="agregarPieza(event)">
+  <label for="numPieza">Num. Pieza:</label>
+  <input type="number" id="numPieza" required><br><br>
+  
+  <label for="largo">Largo:</label>
+  <input type="number" id="largo" required><br><br>
+  
+  <label for="ancho">Ancho:</label>
+  <input type="number" id="ancho" required><br><br>
+  
+  <label for="grosor">Grosor:</label>
+  <input type="number" id="grosor" required><br><br>
+  
+  <label for="color">Color:</label>
+  <input type="text" id="color" required><br><br>
+  
+  <button type="submit">Agregar Pieza</button>
+</form>
+
+<h3>Listado de Piezas:</h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th>Num. Pieza</th>
+      <th>Largo</th>
+      <th>Ancho</th>
+      <th>Grosor</th>
+      <th>Color</th>
+      <th>Superficie</th>
+      <th>Volumen</th>
+    </tr>
+  </thead>
+  <tbody id="tablaPiezas">
+  </tbody>
+</table>
