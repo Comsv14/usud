@@ -1,0 +1,70 @@
+<html>
+<head>
+<script>
+function ejercicio13(){
+    class alumno {
+        constructor(nombre, nota1, nota2, nota3){
+            this.nombre = nombre;
+            this.nota1 = nota1;
+            this.nota2 = nota2;
+            this.nota3 = nota3;
+        }
+    }
+
+    const alumnos = [];
+    
+    function agregarAlumno(nombre, nota1, nota2, nota3){
+        const nuevoAlumno = new alumno(nombre, nota1, nota2, nota3);
+        alumnos.push(nuevoAlumno);
+        document.write(`<br> ${nombre} agregado correctamente.<br>`);
+    }
+
+    function eliminarAlumno(nombre){
+        const index = alumnos.findIndex(alumno => alumno.nombre === nombre);
+        if(index !== -1){
+            alumnos.splice(index, 1);
+            document.write(`Alumno ${nombre} eliminado.<br>`);
+        } else {
+            document.write(`Alumno ${nombre} no encontrado.<br>`);
+        }
+    }
+
+    alumno.prototype.notaMedia = function(){
+        return (this.nota1 + this.nota2 + this.nota3) / 3;
+    };
+
+    function mostrarAlumnos(criterio = 'nombre'){
+        if(criterio === 'nombre'){
+            alumnos.sort((a,b) => a.nombre.localeCompare(b.nombre));
+        } else if(criterio === 'notaMedia'){
+            alumnos.sort((a, b) => b.notaMedia() - a.notaMedia());
+        }
+
+        alumnos.forEach(alumno => {
+            document.write(`Nombre: ${alumno.nombre}, Nota Media: ${alumno.notaMedia().toFixed(2)}<br>`);
+        });
+    }
+
+    agregarAlumno("Juan", 8, 7, 9);
+    agregarAlumno("Pepe", 6, 5, 8);
+    agregarAlumno("Lucas", 9, 9, 8);
+
+    document.write("<br><strong>Alumnos ordenados por nombre: </strong><br>");
+    mostrarAlumnos("nombre");
+
+    document.write("<br><strong>Alumnos ordenados por nota media:</strong><br>");
+    mostrarAlumnos("notaMedia");
+
+    document.write("<br> <strong> Vamos a eliminar a Pepe: </strong></br>");
+    eliminarAlumno("Pepe");
+
+    document.write("<br><strong>Lista actualizada de alumnos por nombre:</strong><br>");
+    mostrarAlumnos("nombre");
+}
+
+ejercicio13();
+</script>
+</head>
+<body>
+</body>
+</html>
