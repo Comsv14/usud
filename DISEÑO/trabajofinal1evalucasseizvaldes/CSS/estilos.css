@@ -37,7 +37,6 @@ nav ul li a {
   transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* CAMBIOS EN EL HOVER Y EL CLICK */
 nav ul li a:hover {
   color: #81c784; 
   text-decoration: none; 
