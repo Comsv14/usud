@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio1</title>
+</head>
+<body>
+    <h1>Calcular Notas Alumnos</h1>
+
+    <div class="form-group">
+        <label for="nombre">Nombre: </label>
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <br></br>
+    </div>
+    <div class="form-group">
+        <label for="apellidos">Apellidos: </label>
+        <input type="text" id="apellidos" placeholder="Apellidos" required>
+        <br></br>
+    </div>
+    <div class="form-group">
+        <label for="nota1">Primera Nota:</label>
+        <input type="number" id="nota1" placeholder="Primera nota" required min="0" step="0.01">
+        <br></br>
+    </div>
+    <div class="form-group">
+        <label for="nota2">Segunda Nota:</label>
+        <input type="number" id="nota2" placeholder="Segunda nota" required min="0" step="0.01">
+        <br></br>
+    </div>
+    <div class="form-group">
+        <label for="nota3">Tercera Nota:</label>
+        <input type="number" id="nota3" placeholder="Tercera nota" required min="0" step="0.01">
+        <br></br>
+    </div>
+
+    <button onclick="agregar()">Agregar Alumno</button>
+    <button onclick="modificar()">Modificar Alumno</button>
+    <button onclick="eliminar()">Eliminar Alumno</button>
+    <button onclick="mostrarTodos()">Mostrar Alumnos</button>
+    <button onclick="mostrarSuspensos()">Mostrar Alumnos Suspensos</button>
+
+    <h2>Lista de Alumnos</h2>
+    <ul id="listaAlumnos"></ul>
+
+    <script>
+        let alumnos = [];
+
+        class alumno {
+            constructor(nombre, apellidos, nota1, nota2, nota3) {
+                this.nombre = nombre;
+                this.apellidos = apellidos;
+                this.nota1 = nota1;
+                this.nota2 = nota2;
+                this.nota3 = nota3;
+            }
+
+            calcularMedia() {
+                return (this.nota1 + this.nota2 + this.nota3) / 3;
+            }
+
+            toString() {
+                return `${this.nombre} ${this.apellidos}, Notas: Primera Nota: ${this.nota1}, Segunda Nota: ${this.nota2}, Tercera Nota: ${this.nota3}], Media: ${this.calcularMedia().toFixed(2)}`;
+            }
+        }
+
+        function mostrarAlumnos() {
+            const lista = document.getElementById("listaAlumnos");
+            lista.innerHTML = "";
+            alumnos.forEach(alumno => {
+                const item = document.createElement("li");
+                item.textContent = alumno.toString();
+                lista.appendChild(item);
+            });
+        }
+
+        function agregar() {
+            const nombre = document.getElementById("nombre").value.trim();
+            const apellidos = document.getElementById("apellidos").value.trim();
+            const nota1 = parseFloat(document.getElementById("nota1").value);
+            const nota2 = parseFloat(document.getElementById("nota2").value);
+            const nota3 = parseFloat(document.getElementById("nota3").value);
+
+            if (!nombre || !apellidos || isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor, completa todos los campos correctamente.");
+                return;
+            }
+
+            alumnos.push(new alumno(nombre, apellidos, nota1, nota2, nota3));
+            alert(`Alumno añadido: ${nombre} ${apellidos}`);
+            mostrarAlumnos();
+        }
+
+        function modificar() {
+            const nombre = prompt("Introduce el nombre del alumno a modificar:");
+            const alumno = alumnos.find(a => a.nombre.toLowerCase() === nombre.toLowerCase());
+
+            if (!alumno) {
+                alert("Alumno no encontrado.");
+                return;
+            }
+
+            alumno.nota1 = parseFloat(prompt("Nueva primera nota:", alumno.nota1));
+            alumno.nota2 = parseFloat(prompt("Nueva segunda nota:", alumno.nota2));
+            alumno.nota3 = parseFloat(prompt("Nueva tercera nota:", alumno.nota3));
+            alert("Alumno modificado correctamente.");
+            mostrarAlumnos();
+        }
+
+        function eliminar() {
+            const nombre = prompt("Introduce el nombre del alumno a eliminar:");
+            const index = alumnos.findIndex(a => a.nombre.toLowerCase() === nombre.toLowerCase());
+
+            if (index === -1) {
+                alert("Alumno no encontrado.");
+                return;
+            }
+
+            alumnos.splice(index, 1);
+            alert("Alumno eliminado correctamente.");
+            mostrarAlumnos();
+        }
+
+        function mostrarSuspensos() {
+            const lista = document.getElementById("listaAlumnos");
+            lista.innerHTML = "";
+            const suspensos = alumnos.filter(alumno => alumno.calcularMedia() < 5);
+
+            if (suspensos.length === 0) {
+                lista.innerHTML = "<li>No hay alumnos suspensos.</li>";
+                return;
+            }
+
+            suspensos.forEach(alumno => {
+                const item = document.createElement("li");
+                item.textContent = `SUSPENSO: ${alumno.nombre} ${alumno.apellidos}, Media: ${alumno.calcularMedia().toFixed(2)}`;
+                lista.appendChild(item);
+            });
+        }
+        function mostrarTodos() {
+            const lista = document.getElementById("listaAlumnos");
+            lista.innerHTML = "";
+            alumnos.forEach(alumno => {
+                const item = document.createElement("li");
+                item.textContent = `Alumno: ${alumno.nombre}, Apellidos: ${alumno.apellidos} `;
+                lista.appendChild(item);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de IMC</h1>
+
+    <!-- Formulario para añadir/modificar/eliminar personas -->
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Introduce el nombre">
+    </div>
+    <div class="form-group">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="Introduce el peso en kg" step="0.1">
+    </div>
+    <div class="form-group">
+        <label for="altura">Altura (m):</label>
+        <input type="number" id="altura" placeholder="Introduce la altura en metros" step="0.01">
+    </div>
+    
+    <!-- Botones para interactuar -->
+    <button id="Agregar">Agregar Persona</button>
+    <button id="Modificar">Modificar Persona</button>
+    <button id="Eliminar">Eliminar Persona</button>
+    <button id="Calcular">Calcular IMC</button>
+    <button id="MostrarSobrepeso">Mostrar Personas con Sobrepeso</button>
+
+    <!-- Lista para mostrar las personas -->
+    <h2>Lista de Personas</h2>
+    <ul id="listaPersonas">
+        <!-- Aquí se añadirán los elementos dinámicamente -->
+    </ul>
+
+    <!-- Script de JavaScript -->
+    <script>
+        class Persona {
+            constructor(nombre, peso, altura) {
+                this.nombre = nombre;
+                this.peso = peso;
+                this.altura = altura;
+            }
+
+            calcularIMC() {
+                return (this.peso / (this.altura ** 2)).toFixed(2);
+            }
+
+            obtenerEstado() {
+                const imc = parseFloat(this.calcularIMC());
+                if (imc < 18.5) return "delgada";
+                if (imc <= 24.9) return "normal";
+                return "con sobrepeso";
+            }
+        }
+
+        class PersonaIMC {
+            constructor(nombre, peso, altura, imc, estado) {
+                this.nombre = nombre;
+                this.peso = peso;
+                this.altura = altura;
+                this.imc = imc;
+                this.estado = estado;
+            }
+        }
+
+        function cargarPersonas() {
+            const personasGuardadas = localStorage.getItem('personas');
+            if (personasGuardadas) {
+                const datos = JSON.parse(personasGuardadas);
+                return datos.map(data => new Persona(data.nombre, data.peso, data.altura));
+            }
+            return [];
+        }
+
+        function cargarPersonasIMC() {
+            const personasIMCGuardadas = localStorage.getItem('personasIMC');
+            if (personasIMCGuardadas) {
+                return JSON.parse(personasIMCGuardadas).map(data => new PersonaIMC(data.nombre, data.peso, data.altura, data.imc, data.estado));
+            }
+            return [];
+        }
+
+        function guardarPersonas(personas) {
+            localStorage.setItem('personas', JSON.stringify(personas));
+        }
+
+        function guardarPersonasIMC(personasIMC) {
+            localStorage.setItem('personasIMC', JSON.stringify(personasIMC));
+        }
+
+        let personas = cargarPersonas();
+        let personasIMC = cargarPersonasIMC();
+
+        function mostrarPersonas(personasParaMostrar = null) {
+            const lista = document.getElementById("listaPersonas");
+            lista.innerHTML = "";
+
+            const personasAMostrar = personasParaMostrar !== null ? personasParaMostrar : personas;
+            
+            personasAMostrar.forEach((persona, index) => {
+                const item = document.createElement("li");
+                item.textContent = `${persona.nombre}: Peso = ${persona.peso}kg, Altura = ${persona.altura}m`;
+                item.dataset.index = index; // Agregar índice como atributo de datos
+                lista.appendChild(item);
+            });
+        }
+
+        function agregarPersona(nombre, peso, altura) {
+            if (nombre && peso > 0 && altura > 0) {
+                const nuevaPersona = new Persona(nombre, peso, altura);
+                personas.push(nuevaPersona);
+                guardarPersonas(personas);
+                alert(`Persona añadida: ${nombre}`);
+                mostrarPersonas();
+            } else {
+                alert("Por favor, introduce datos válidos.");
+            }
+        }
+
+        function modificarPersona(nombre, peso, altura) {
+            const index = personas.findIndex(persona => persona.nombre === nombre);
+            if (index !== -1 && peso > 0 && altura > 0) {
+                personas[index] = new Persona(nombre, peso, altura);
+                guardarPersonas(personas);
+                alert(`Persona modificada: ${nombre}`);
+                mostrarPersonas();
+            } else {
+                alert("La persona no fue encontrada o los datos son inválidos.");
+            }
+        }
+
+        function eliminarPersona(nombre) {
+            const index = personas.findIndex(persona => persona.nombre === nombre);
+            if (index !== -1) {
+                personas.splice(index, 1);
+                guardarPersonas(personas);
+                alert(`Persona eliminada: ${nombre}`);
+                mostrarPersonas();
+            } else {
+                alert("La persona no fue encontrada.");
+            }
+        }
+
+        function mostrarIMC() {
+            if (personas.length > 0) {
+                const resultados = [];
+                const resultadosIMC = [];
+                for (let i = 0; i < personas.length; i++) {
+                    const persona = personas[i];
+                    const imc = parseFloat(persona.calcularIMC());
+                    const estado = persona.obtenerEstado();
+                    resultados.push(`${persona.nombre}: IMC = ${imc}, Estado = ${estado}`);
+                    
+                    if (estado !== "normal") {
+                        resultadosIMC.push(new PersonaIMC(persona.nombre, persona.peso, persona.altura, imc, estado));
+                    }
+                }
+                alert(resultados.join("\n"));
+                if (resultadosIMC.length > 0) {
+                    guardarPersonasIMC(resultadosIMC);
+                }
+            } else {
+                alert("No hay personas registradas.");
+            }
+        }
+
+        function mostrarPersonasSobrepeso() {
+            const personasSobrepeso = personas.filter(persona => persona.obtenerEstado() === "con sobrepeso");
+            if (personasSobrepeso.length > 0) {
+                const mensaje = personasSobrepeso.map(persona => `${persona.nombre}: Peso = ${persona.peso}kg, Altura = ${persona.altura}m`).join("\n");
+                alert(`Personas con sobrepeso:\n${mensaje}`);
+            } else {
+                alert("No hay personas con sobrepeso.");
+            }
+        }
+
+        document.getElementById("Agregar").addEventListener("click", () => {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+            agregarPersona(nombre, peso, altura);
+        });
+
+        document.getElementById("Modificar").addEventListener("click", () => {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+            modificarPersona(nombre, peso, altura);
+        });
+
+        document.getElementById("Eliminar").addEventListener("click", () => {
+            const nombre = document.getElementById("nombre").value;
+            eliminarPersona(nombre);
+        });
+
+        document.getElementById("Calcular").addEventListener("click", mostrarIMC);
+
+        document.getElementById("MostrarSobrepeso").addEventListener("click", mostrarPersonasSobrepeso);
+
+        mostrarPersonas(); // Mostrar lista al cargar la página
+    </script>
+</body>
+</html>

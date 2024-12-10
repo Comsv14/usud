@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3</title>
+    <style>
+        html{
+            text-align: center    
+        };
+    </style>
+</head>
+<body>
+
+    <form>
+        <h1 id="pregunta">¿Qué producto quieres añadir al almacén?</h1>
+        <label>Nombre: </label>
+        <input type="text" id="nombre" placeholder="Patatas" required>
+        <br><br>
+        <label>Precio: </label>
+        <input type="number" id="precio" placeholder="2.56" required min="0" step="0.01"> euros.
+        <br><br>
+        <label>Seccion: </label>
+        <input type="text" id="seccion" placeholder="Verduras" required>
+        <br><br>
+        <button type="button" onclick="agregar()">Añadir Producto</button>
+        <button type="button" onclick="mostrarProductos()">Mostrar Productos</button>
+        <button type="button" onclick="eliminarProducto()">Eliminar Producto</button>
+        <button type="button" onclick="modificarProducto()">Modificar Producto</button>
+        
+
+        <ul id="listaProductos"></ul>
+    </form>
+
+    <script>
+        let productos = [];
+
+        class Producto {
+            constructor(nombre, precio, seccion, id) {
+                this.nombre = nombre;
+                this.precio = precio;
+                this.seccion = seccion;
+                this.id = id;
+            }
+
+            toString() {
+                return `Nombre: ${this.nombre} || Precio: ${this.precio.toFixed(2)} € || Seccion: ${this.seccion} || ID: ${this.id}`;
+            }
+        }
+
+        function agregar() {
+            event.preventDefault(); 
+            const nombre = document.getElementById("nombre").value.trim();
+            const precio = parseFloat(document.getElementById("precio").value);
+            const seccion = document.getElementById("seccion").value.trim();
+            const id = productos.length + 1;
+
+            if (!nombre || isNaN(precio) || precio <= 0) {
+                alert("Por favor, introduce datos válidos.");
+                return;
+            }
+
+            const nuevoProducto = new Producto(nombre, precio, seccion, id);
+            productos.push(nuevoProducto);
+            localStorage.setItem("productos", JSON.stringify(productos));
+            alert(`Producto agregado: ${nuevoProducto.toString()}`);
+            mostrarProductos();
+        }
+
+        function mostrarProductos() {
+            event.preventDefault(); 
+            const listaProductos = document.getElementById("listaProductos");
+            listaProductos.innerHTML = "";
+            const titulo =document.createElement("h1");
+            titulo.textContent = "Productos Registrados";
+            listaProductos.appendChild(titulo);
+
+            if (productos.length === 0) {
+                listaProductos.innerHTML = "<li>No hay productos registrados.</li>";
+                return;
+            }
+
+            productos.forEach((producto) => {
+                const fila = document.createElement("p");
+                fila.textContent = producto.toString();
+                listaProductos.appendChild(fila);
+            });
+        }
+
+        function eliminarProducto() {
+            const nombre = prompt("Introduce el nombre del producto a eliminar:");
+            const index = productos.findIndex(a => a.nombre.toLowerCase() === nombre.toLowerCase());
+
+            if (index === -1) {
+                alert("Producto no encontrado.");
+                return;
+            }
+
+            productos.splice(index, 1);
+            localStorage.setItem("productos", JSON.stringify(productos));
+            alert("Producto eliminado correctamente.");
+            mostrarProductos();
+        }
+
+        function modificarProducto() {
+            const nombre = prompt("Introduce el nombre del producto a modificar:");
+            const producto = productos.find(a => a.nombre.toLowerCase()=== nombre.toLowerCase());
+
+            if (!producto) {
+                alert("Producto no encontrado.");
+                return;
+            }
+            producto.nombre = prompt("Nuevo nombre:", producto.nombre);
+            producto.precio = parseFloat(prompt("Nueva precio:", producto.precio));
+            producto.seccion = prompt("Nueva seccion:", producto.seccion); 
+            localStorage.setItem("productos", JSON.stringify(productos));
+            alert("Producto modificado correctamente.");
+            mostrarProductos();
+        }
+        window.onload = function() {
+            const datosProductos = localStorage.getItem("productos");
+            if (datosProductos) {
+                productos = JSON.parse(datosProductos).map(producto => 
+                    new Producto(producto.nombre, producto.precio, producto.seccion, producto.id)
+                );
+                mostrarProductos();
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de IMC</h1>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Introduce el nombre">
+    </div>
+    <div class="form-group">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="Introduce el peso en kg" step="0.1">
+    </div>
+    <div class="form-group">
+        <label for="altura">Altura (m):</label>
+        <input type="number" id="altura" placeholder="Introduce la altura en metros" step="0.01">
+    </div>
+    <button onclick="agregar()">Agregar Persona</button>
+    <button onclick="modificar()">Modificar Persona</button>
+    <button onclick="eliminar()">Eliminar Persona</button>
+    <button onclick="calcularIMCs()">Calcular IMC</button>
+    <button onclick="mostrarSobrepeso()">Mostrar Personas con Sobrepeso</button>
+    <h2>Lista de Personas</h2>
+    <ul id="listaPersonas"></ul>
+
+    <script>
+        // Array para guardar las personas
+        let personas = [];
+
+        // Función para calcular el IMC
+        function calcularIMC(peso, altura) {
+            return (peso / (altura ** 2)).toFixed(2);
+        }
+
+        // Función para determinar el estado del IMC
+        function obtenerEstado(imc) {
+            if (imc < 18.5) return "delgada";
+            if (imc <= 24.9) return "normal";
+            return "con sobrepeso";
+        }
+
+        // Función para mostrar las personas en la lista
+        function mostrarPersonas() {
+            const lista = document.getElementById("listaPersonas");
+            lista.innerHTML = ""; // Limpiar la lista antes de volver a mostrarla
+            for (let persona of personas) {
+                const item = document.createElement("li");
+                item.textContent = `${persona.nombre}: Peso = ${persona.peso}kg, Altura = ${persona.altura}m`;
+                lista.appendChild(item);
+            }
+        }
+
+        // Función para agregar una persona
+        function agregar() {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+
+            if (nombre && peso > 0 && altura > 0) {
+                personas.push({ nombre, peso, altura });
+                alert(`Persona añadida: ${nombre}`);
+                mostrarPersonas();
+            } else {
+                alert("Por favor, introduce datos válidos.");
+            }
+        }
+
+        // Función para modificar una persona
+        function modificar() {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+
+            for (let i = 0; i < personas.length; i++) {
+                if (personas[i].nombre === nombre) {
+                    if (peso > 0 && altura > 0) {
+                        personas[i] = { nombre, peso, altura };
+                        alert(`Persona modificada: ${nombre}`);
+                        mostrarPersonas();
+                        return;
+                    } else {
+                        alert("Datos inválidos.");
+                        return;
+                    }
+                }
+            }
+            alert("La persona no fue encontrada.");
+        }
+
+        // Función para eliminar una persona
+        function eliminar() {
+            const nombre = document.getElementById("nombre").value;
+
+            for (let i = 0; i < personas.length; i++) {
+                if (personas[i].nombre === nombre) {
+                    personas.splice(i, 1);
+                    alert(`Persona eliminada: ${nombre}`);
+                    mostrarPersonas();
+                    return;
+                }
+            }
+            alert("La persona no fue encontrada.");
+        }
+
+        // Función para calcular y mostrar el IMC de todas las personas
+        function calcularIMCs() {
+            if (personas.length > 0) {
+                let resultados = "";
+                for (let persona of personas) {
+                    const imc = calcularIMC(persona.peso, persona.altura);
+                    const estado = obtenerEstado(imc);
+                    resultados += `${persona.nombre}: IMC = ${imc}, Estado = ${estado}\n`;
+                }
+                alert(resultados);
+            } else {
+                alert("No hay personas registradas.");
+            }
+        }
+
+        // Función para mostrar personas con sobrepeso
+        function mostrarSobrepeso() {
+            let personasSobrepeso = "";
+            for (let persona of personas) {
+                const imc = calcularIMC(persona.peso, persona.altura);
+                if (obtenerEstado(imc) === "con sobrepeso") {
+                    personasSobrepeso += `${persona.nombre}: Peso = ${persona.peso}kg, Altura = ${persona.altura}m\n`;
+                }
+            }
+            if (personasSobrepeso) {
+                alert(`Personas con sobrepeso:\n${personasSobrepeso}`);
+            } else {
+                alert("No hay personas con sobrepeso.");
+            }
+        }
+
+        // Mostrar la lista al cargar la página
+        mostrarPersonas();
+    </script>
+</body>
+</html>
