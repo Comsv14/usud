@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de IMC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+        .input-group label {
+            display: inline-block;
+            width: 100px;
+        }
+        .input-group input {
+            padding: 5px;
+            width: 150px;
+        }
+        button {
+            margin-right: 10px;
+            padding: 5px 15px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de IMC</h1>
+    <div class="input-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Introduce el nombre">
+    </div>
+    <div class="input-group">
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="Introduce el peso">
+    </div>
+    <div class="input-group">
+        <label for="altura">Altura (m):</label>
+        <input type="number" step="0.01" id="altura" placeholder="Introduce la altura">
+    </div>
+    <button onclick="agregarPersona()">Añadir</button>
+    <button onclick="modificarPersona()">Modificar</button>
+    <button onclick="calcularIMC()">Calcular</button>
+    
+    <h2>Personas Registradas</h2>
+    <table id="tabla-personas">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Peso (kg)</th>
+                <th>Altura (m)</th>
+                <th>IMC</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        // Array para almacenar las personas
+        let personas = [];
+
+        // Función para agregar una persona
+        function agregarPersona() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+
+            if (!nombre || isNaN(peso) || isNaN(altura)) {
+                alert('Por favor, rellena todos los campos correctamente.');
+                return;
+            }
+
+            // Verificar si ya existe una persona con el mismo nombre
+            const existe = personas.find(persona => persona.nombre === nombre);
+            if (existe) {
+                alert('Ya existe una persona con este nombre.');
+                return;
+            }
+
+            // Agregar a la lista de personas
+            personas.push({ nombre, peso, altura, imc: null, estado: null });
+            actualizarTabla();
+        }
+
+        // Función para modificar una persona
+        function modificarPersona() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+
+            if (!nombre || isNaN(peso) || isNaN(altura)) {
+                alert('Por favor, rellena todos los campos correctamente.');
+                return;
+            }
+
+            const persona = personas.find(persona => persona.nombre === nombre);
+            if (!persona) {
+                alert('No se encontró a una persona con este nombre.');
+                return;
+            }
+
+            // Actualizar los datos de la persona
+            persona.peso = peso;
+            persona.altura = altura;
+            persona.imc = null; // Resetear el IMC para recalcular
+            persona.estado = null;
+            actualizarTabla();
+        }
+
+        // Función para calcular el IMC de todas las personas
+        function calcularIMC() {
+            personas = personas.map(persona => {
+                const imc = (persona.peso / (persona.altura * persona.altura)).toFixed(2);
+                let estado;
+
+                if (imc < 18.5) {
+                    estado = 'Demasiado delgada';
+                } else if (imc >= 18.5 && imc <= 24.99) {
+                    estado = 'Peso normal';
+                } else {
+                    estado = 'Demasiado obesa';
+                }
+
+                return { ...persona, imc, estado };
+            });
+
+            actualizarTabla();
+        }
+
+        // Función para actualizar la tabla en el HTML
+        function actualizarTabla() {
+            const tbody = document.getElementById('tabla-personas').querySelector('tbody');
+            tbody.innerHTML = '';
+
+            personas.forEach(persona => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${persona.nombre}</td>
+                    <td>${persona.peso}</td>
+                    <td>${persona.altura}</td>
+                    <td>${persona.imc || 'Pendiente'}</td>
+                    <td>${persona.estado || 'Pendiente'}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    </script>
+</body>
+</html>

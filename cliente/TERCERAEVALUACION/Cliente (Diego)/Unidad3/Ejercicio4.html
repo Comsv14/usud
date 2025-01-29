@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer un programa mediante una función que permita introducir 
+     el nombre de usuario, 
+     el nombre del servidor 
+     y el dominio 
+     y nos devuelva la dirección de correo electrónica. -->
+    <script>
+        function correo() {
+            let usuario = prompt("Introduce tu nombre de usuario:");
+            let servidor = prompt("Introduce el nombre del servidor:");
+            let dominio = prompt("Introduce el dominio:");
+            let correo = usuario + "@" + servidor + "." + dominio;
+            document.write(correo);
+        }
+        correo();
+    </script>
+</body>
+</html>

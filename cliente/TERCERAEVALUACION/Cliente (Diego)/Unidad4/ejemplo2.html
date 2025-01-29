@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="unidad4.js"></script>
+</head>
+<body>
+    Motor de búsqueda<a href="https://www.google.es" id="google">Google</a>
+    <br>
+    Sitio de información<a href="https://www.yahoo.es" id="yahoo">Yahoo</a>
+    <br>
+    Enciclopedia<a href="https://www.wikipedia.es" id="wikipedia">wikipedia</a>
+    <br>
+    <script>
+        cadena = prompt('Introduce patrón de búsqueda ');
+        console.log(documentContiene(document.body, cadena));
+    </script>
+    <!--
+    <script>
+        document.write('<br><br>')
+        document.write('Número de enlaces al documento: ', document.links.length,'<br>');
+        document.write('Id del segundo enlace del documento: ', document.links[1].id,'<br>');
+        document.write('URL del tercer enlace del documento: ', document.links[2].href,'<br>');
+    </script>
+    -->
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            Crear un método nuevo de la clase Array, que, 
+            pasándole una posición, elimine el elemento que se
+            encuentre en dicha posición.
+        */
+       // Extender la clase Array para añadir un metodo personalizado
+        Array.prototype.eliminarEnPosicion = function(posicion) {
+            if (posicion >= 0 && posicion < this.length) {
+                this.splice(posicion, 1); // Eliminar el elemento en la posicion dada
+            } else {
+                console.error("Posicion fuera de rango.");
+            }
+        };
+
+        // Ejemplo de uso
+        const miArray = [10, 20, 30, 40, 50];
+        console.log("Array original:", miArray); // [10, 20, 30, 40, 50]
+
+        miArray.eliminarEnPosicion(2); // Eliminar el elemento en la posicion 2 (30)
+        console.log("Array despues de eliminar en posicion 2:", miArray); // [10, 20, 40, 50]
+
+        miArray.eliminarEnPosicion(10); // Intentar eliminar en una posicion no valida
+        // Error: Posicion fuera de rango.
+    </script>
+</body>
+</html>

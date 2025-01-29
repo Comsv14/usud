@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        Hacer  un  programa  que,  mediante  una  función  e  introducidos  previamente  dos  números  y  un 
+        operador, realice el cálculo.
+    -->
+    <script>
+        let num1 = prompt("Introduce el primer numero");
+        let num2 = prompt("Introduce el segundo numero");
+        num1 = parseInt(num1);
+        num2 = parseInt(num2);
+        let operador = prompt("Introduce el operador");
+                function funcion(num1,num2,operador) {
+            let operador = prompt("Introduce el operador");
+                if (operador == "+") {
+                    alert(num1 + num2);
+                } else if (operador == "-") {
+                    alert(num1 - num2);
+                } else if (operador == "*") {
+                    alert(num1 * num2);
+                } else if (operador == "/") {
+                    alert(num1 / num2);
+                } else {
+                    alert("Operador incorrecto");
+                }
+        }
+    </script>
+</body>
+</html>

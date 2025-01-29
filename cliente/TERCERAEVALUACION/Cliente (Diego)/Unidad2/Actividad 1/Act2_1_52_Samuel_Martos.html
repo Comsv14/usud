@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numero = prompt('Introduce un numero decimal','');
+        let base = prompt('Introduce la base (2-9)','');
+        numero = parseInt(numero);
+        base = parseInt(base);
+        if (isNaN(numero) || numero<1){
+            alert('El numero introducido no es correcto')
+        }
+        else if(isNaN(base) || (base<2 || base>9)){
+            alert('El numero introducido como base no es correcto')
+        }else{
+            let c = numero;
+            let r;
+            let res = '';
+            while (c>=base) {
+                r = c % base;
+                c = c / base;
+                c = parseInt(c);
+                res = String(r) + res;
+            }
+            res = String(c) + res;
+            document.write("El numero ", numero," en base ",base," es ",res)
+        }
+    </script>
+</body>
+</html>

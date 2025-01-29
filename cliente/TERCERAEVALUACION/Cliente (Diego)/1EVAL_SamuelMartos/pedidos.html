@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MaderAvilés</title>
+        <link rel="stylesheet" href="style/styles.css">
+        <script src="scripts/pedidos.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>MaderAvilés - Carpintería</h1>
+        </header>
+        <main>
+            <nav>   
+                <ul>
+                    <li><a href="pedidos.html">Gestión de Pedidos</a></li>
+                    <li><a href="piezas.html">Gestión de Piezas</a></li>
+                    <li><a href="detalle_pedido.html">Detalle de Pedidos</a></li>
+                </ul>
+            </nav>
+            <form action="" method="">
+                <label for="wf">INTRODUCE EL NUMERO DEL PEDIDO:</label>
+                <input type="text" id="numero-Pedido">
+                
+                <button type="button" id="comprobar">Comprobar</button>
+                <!-- comprobar el numero de pedido -->
+            </form>
+
+            <!-- Aquí se insertará la tabla de los datos -->
+            <div id="tabla-container"></div>
+
+            <script>
+                // Definimos la clase 'Pedidos'
+                /*
+                class Pedidos {
+                    constructor(numeroPedido, cliente, fechaPedido, procesado = false, servido = false) {
+                        this.numeroPedido = numeroPedido; // Número entero único
+                        this.cliente = cliente; // Cadena, nombre y apellidos
+                        this.fechaPedido = new Date(fechaPedido); // Fecha de realización del pedido
+                        this.procesado = procesado; // Booleano, si ha sido procesado
+                        this.servido = servido; // Booleano, si ha sido servido
+                        this.piezas = []; // Colección de piezas (instancias de Pieza)
+                    }
+                }*/
+                //pedidos=new Pedidos();   
+                // Array de pedidos de ejemplo
+                const pedidos = [
+                   pedido1= new Pedidos(1, "Juan Domingo", "2024-11-25", true, false),
+                   pedido2= new Pedidos(2, "CR7", "2024-11-27", false, false),
+                   pedido3=new Pedidos(3, "FAKER", "2024-11-24", true, true),
+                ];
+
+                document.getElementById("comprobar").addEventListener("click", comprobar);
+
+                function comprobar() {
+                    // Capturamos el número de pedido introducido
+                    const numeroPedido = parseInt(document.getElementById("numero-Pedido").value);
+                    
+                    // Buscamos el pedido en el array
+                    const pedido = pedidos.find(p => p.numeroPedido === numeroPedido);
+                    
+                    // Limpiamos el contenedor antes de insertar la nueva tabla
+                    const container = document.getElementById("tabla-container");
+                    container.innerHTML = "";  // Limpiar el contenido previo
+                    
+                    if (pedido) {
+                        // Si el pedido existe, creamos la tabla
+                        let table = document.createElement("table");
+
+                        // Crear el encabezado con las claves del objeto dinámicamente
+                        let headerRow = table.insertRow();
+                        for (const key in pedido) {
+                            if (pedido.hasOwnProperty(key) && key !== 'piezas') {  // Excluimos 'piezas' u otras propiedades no necesarias
+                                const headerCell = document.createElement("th");
+                                headerCell.textContent = key.charAt(0).toUpperCase() + key.slice(1); // Capitalizar la primera letra
+                                headerRow.appendChild(headerCell);
+                            }
+                        }
+
+                        // Crear la fila con los valores del pedido
+                        let row = table.insertRow();
+                        for (const key in pedido) {
+                            if (pedido.hasOwnProperty(key) && key !== 'piezas') { // Excluimos 'piezas' u otras propiedades no necesarias
+                                let cell = row.insertCell();
+                                if (pedido[key] instanceof Date) {
+                                    cell.textContent = pedido[key].toLocaleDateString(); // Formatear la fecha
+                                } else if (typeof pedido[key] === 'boolean') {
+                                    cell.textContent = pedido[key] ? "Sí" : "No"; // Mostrar "Sí" o "No" para valores booleanos
+                                } else {
+                                    cell.textContent = pedido[key];
+                                }
+                            }
+                        }
+                        
+                        container.appendChild(table);
+                    } else {
+                        // Si no se encuentra el pedido, mostramos un mensaje
+                        container.innerHTML = "<p>Pedido no encontrado.</p>";
+                    }
+                }
+            </script>
+
+        </main>
+        <footer>
+            <p>© 2024 MaderAvilés</p>
+        </footer>
+    </body>
+</html>

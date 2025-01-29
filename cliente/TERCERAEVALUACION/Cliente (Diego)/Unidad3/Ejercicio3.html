@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //lambda
+        const mayorde3 =(x,y,z) => {
+            if (x>y){
+                if(x>z)
+                    return x;
+                else
+                    return z;
+            }
+            else if(y>z){
+                return y;
+            }
+            else 
+                return z;
+        }
+    </script>
+</head>
+<body>
+    <script>
+        document.write(mayorde3(1,4,2));
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class alumno {
+            constructor(nombre,notas,notaMedia) {
+                this.nombre=nombre;
+                this.notas=[];
+                this.notaMedia = this.calcularNotaMedia(); // Se calcula automáticamente
+            }
+
+            // Método privado para calcular la nota media
+            calcularNotaMedia() {
+                if (!this.notas.length) return 0; //si no hay notas = 0
+
+                let suma = 0; 
+                for (let i = 0; i < this.notas.length; i++) {
+                    suma += this.notas[i];
+                }
+
+                return +(suma / this.notas.length).toFixed(2); //calcula el promedio y lo redondea con toFixed
+                //el + hace que "string" se combiertan a numero 
+            }
+        }//fin de la clase
+        function cargarDatosIniciales() {
+        //define los alumnos fijos
+            const alumnosFijos = [
+                {
+                    nombre: "Juan Pérez",
+                    notas: [1,7,9],
+                },
+                {
+                    nombre: "Ana López",
+                    notas: [7,7,7],
+                }
+            ];
+            //convertir a JSON y guardar
+                localStorage.setItem('alumnos', JSON.stringify(alumnosFijos));
+            //recuperar y convertir de nuevo a objeto
+                let alumnosGuardados = JSON.parse(localStorage.getItem('alumnos'));
+                //console.log(alumnosGuardados[0].nombre); 
+                //console.log(alumnosGuardados[1].nombre); 
+                alumnosGuardados.forEach(alumno => {
+                    console.log(alumno.nombre); //ver todos los nombres de los alumnos visualizar array  guardado
+                });
+        }
+        cargarDatosIniciales();
+    </script>
+    <form action="" method="">
+
+    </form>
+</body>
+</html>

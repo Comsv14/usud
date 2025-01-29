@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora del IMC</title>
+</head>
+<body>
+<h1>Calculadora del IMC</h1>
+<div>
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" placeholder="Escribe el nombre" required>
+
+    <label for="peso">Peso</label>  
+    <input type="text" id="peso" placeholder="70" step="0.1" required>
+
+    <label for="altura">Altura</label>    
+    <input type="text" id="altura" placeholder="1.75" step="0.01" required>
+
+    <button onclick="anadirPersona()">Añadir</button>
+    <button onclick="modificarPersona()">Modificar</button>
+    <button onclick="calcularIMC()">Calcular</button>
+</div>
+
+<h2>Personas Registradas</h2>
+<table id="tablaPersonas">
+<thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Peso(kg)</th>
+        <th>Altura(m)</th>
+        <th>IMC</th>
+        <th>Estado</th>
+    </tr>
+</thead>
+    <tbody>
+        <!-- Se añadirán las personas dinámicamente -->
+    </tbody>
+</table>
+
+<h2>Personas con un IMC fuera de lo normal</h2>
+<ul id="listaFueraRango">
+    <!-- Aquí se mostrarán las personas con IMC fuera del rango -->
+</ul>
+
+<!-- Enlazamos el archivo JavaScript -->
+<script src="app.js"></script>
+</body>
+</html>

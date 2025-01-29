@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Pedidos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>MaderAvilés - Carpintería</h1>
+    <nav>
+      <ul>
+        <li><a href="pedidos.html">Gestión de Pedidos</a></li>
+        <li><a href="piezas.html">Gestión de Piezas</a></li>
+        <li><a href="detallePedido.html">Detalle de Pedido</a></li>
+      </ul>
+    </nav>
+  </header>
+  <h1>Gestión de Pedidos</h1>
+  <div class="container">
+    <!-- Gestión de Pedidos -->
+    <h2>Gestión de Pedidos</h2>
+    <form id="pedidoForm">
+      <label for="numeroPedido">Número de Pedido:</label>
+      <input type="number" id="numeroPedido" min="1" required>
+
+      <label for="cliente">Cliente:</label>
+      <input type="text" id="cliente" maxlength="50" required>
+
+      <label for="fechaPedido">Fecha de Pedido:</label>
+      <input type="date" id="fechaPedido" required>
+
+      <label>
+        <input type="checkbox" id="procesado"> Procesado
+      </label>
+      <label>
+        <input type="checkbox" id="servido"> Servido
+      </label>
+
+      <button type="submit">Guardar Pedido</button>
+    </form>
+  </div>
+  <div id="pedidosLista"></div>
+</body>
+</html>

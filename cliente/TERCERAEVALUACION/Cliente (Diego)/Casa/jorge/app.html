@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC V1</title>
+    <style> /*no es obligatorio hacer css*/
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        input, button {
+            margin: 5px;
+            padding: 5px;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de IMC</h1>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" placeholder="Escribe el nombre" required>
+        <label for="peso">Peso (kg):</label>
+        <input type="number" id="peso" placeholder="70" step="0.1" required>
+        <label for="altura">Altura (m):</label>
+        <input type="number" id="altura" placeholder="1.75" step="0.01" required>
+        <button onclick="añadirPersona()">Añadir</button>
+        <button onclick="modificarPersona()">Modificar</button>
+        <button onclick="calcularIMC()">Calcular IMC</button>
+    </div>
+
+    <h2>Personas Registradas</h2>
+    <table id="tablaPersonas">
+        <thead><!-- TE PONE LAS PERSONAS DEBAJO DEL ENCABEZADO-->
+            <tr>
+                <th>Nombre</th>
+                <th>Peso (kg)</th>
+                <th>Altura (m)</th>
+                <th>IMC</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Se añadirán las personas dinámicamente -->
+        </tbody>
+    </table>
+
+    <h2>Personas con IMC fuera de rango normal</h2>
+    <ul id="listaFueraRango">
+        <!-- Aquí se mostrarán las personas con IMC fuera del rango -->
+    </ul>
+
+    <script>
+        // Clases
+        class Persona {
+            constructor(nombre, peso, altura) {
+                this.nombre = nombre;
+                this.peso = parseFloat(peso);
+                this.altura = parseFloat(altura);
+            }
+
+            modificarDatos(nuevoPeso, nuevaAltura) {
+                this.peso = parseFloat(nuevoPeso);
+                this.altura = parseFloat(nuevaAltura);
+            }
+        }
+
+        class CalculoIMC {
+            constructor() {
+                this.registroIMC = [];
+            }
+
+            calcularIMC(persona) {
+                const imc = persona.peso / (persona.altura ** 2);
+                let estado;
+
+                if (imc < 18.49) {
+                    estado = 'Demasiado delgada';
+                } else if (imc >= 18.49 && imc <= 24.99) {
+                    estado = 'Peso normal';
+                } else {
+                    estado = 'Demasiado obesa';
+                    this.registrarPersona(persona.nombre, imc.toFixed(2));
+                }
+
+                return { imc: imc.toFixed(2), estado };
+            }
+
+            registrarPersona(nombre, imc) {
+                this.registroIMC.push({ nombre, imc });
+            }
+
+            obtenerRegistroFueraRango() {
+                return this.registroIMC;
+            }
+        }
+
+        // Variables globales
+        const personas = [];
+        const calculo = new CalculoIMC();
+
+        // Funciones
+        function añadirPersona() {
+            const nombre = document.getElementById('nombre').value.trim();//pa strings
+            const peso = document.getElementById('peso').value;//obtener el elemento
+            const altura = document.getElementById('altura').value;
+
+            if (nombre && peso && altura) {
+                const nuevaPersona = new Persona(nombre, peso, altura);
+                personas.push(nuevaPersona);
+                actualizarTabla();
+                limpiarCampos();
+            } else {
+                alert('Por favor, completa todos los campos.');
+            }
+        }
+
+        function modificarPersona() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const peso = document.getElementById('peso').value;
+            const altura = document.getElementById('altura').value;
+
+            const persona = personas.find(p => p.nombre === nombre);
+
+            if (persona) {
+                persona.modificarDatos(peso, altura);
+                actualizarTabla();
+                limpiarCampos();
+            } else {
+                alert('La persona no existe.');
+            }
+        }
+
+        function calcularIMC() {
+            const tabla = document.getElementById('tablaPersonas').querySelector('tbody');
+            tabla.innerHTML = ''; // Limpiar tabla
+
+            personas.forEach(persona => {
+                const resultado = calculo.calcularIMC(persona);
+                const fila = `
+                    <tr>
+                        <td>${persona.nombre}</td>
+                        <td>${persona.peso}</td>
+                        <td>${persona.altura}</td>
+                        <td>${resultado.imc}</td>
+                        <td>${resultado.estado}</td>
+                    </tr>
+                `;
+                tabla.innerHTML += fila;
+            });
+
+            actualizarListaFueraRango();
+        }
+
+        function actualizarTabla() {
+            const tabla = document.getElementById('tablaPersonas').querySelector('tbody');
+            tabla.innerHTML = '';
+
+            personas.forEach(persona => {
+                const fila = `
+                    <tr>
+                        <td>${persona.nombre}</td>
+                        <td>${persona.peso}</td>
+                        <td>${persona.altura}</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                `;
+                tabla.innerHTML += fila;
+            });
+        }
+
+        function actualizarListaFueraRango() {
+            const lista = document.getElementById('listaFueraRango');
+            lista.innerHTML = '';
+
+            calculo.obtenerRegistroFueraRango().forEach(({ nombre, imc }) => {
+                const elemento = `<li>${nombre}: IMC ${imc}</li>`;
+                lista.innerHTML += elemento;
+                
+            });
+        }
+
+        function limpiarCampos() {
+            document.getElementById('nombre').value = '';
+            document.getElementById('peso').value = '';
+            document.getElementById('altura').value = '';
+            
+        }
+    </script>
+</body>
+</html>
