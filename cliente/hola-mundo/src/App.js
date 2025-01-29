@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Acercade from './components/Acercade';
 import Variables from './components/Variables';
-import AdiosMundo from './components/AdiosMundo'; 
+import AdiosMundo from './components/AdiosMundo';
 
 
 function App() {
@@ -21,11 +21,8 @@ function App() {
         >
           Learn React
         </a>
-        <Variables />
-        <AdiosMundo />
+        <AdiosMundo/>
       </header>
-      <Acercade />
-      
     </div>
   );
 }
