@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import { AdiosMundo } from './components/AdiosMundo';   
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         >
           Learn React
         </a>
+        <AdiosMundo/>
       </header>
     </div>
   );
