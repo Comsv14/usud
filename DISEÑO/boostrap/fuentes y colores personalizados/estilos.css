@@ -1,0 +1,17 @@
+
+
+ .fuente_smooch {
+   font-family: 'Smooch', cursive;
+ }
+
+ .color_darkviolet {
+   color:#9400D3
+ }
+ 
+ .headline {
+    color:#00FF00;
+    font-size: 120px;
+    font-family: 'Smooch', cursive;
+    text-align: center;
+    margin-bottom: 0.1em;
+ }
