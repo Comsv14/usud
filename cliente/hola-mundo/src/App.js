@@ -1,32 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
-import Acercade from './components/Acercade';
-import Variables from './components/Variables';
-import {AdiosMundo} from './components/AdiosMundo'; 
-
-
+import Encabezado from './components/Encabezado';
+import Pie from './components/Pie';
+import { AppContext, valoresDefecto } from './AppContext';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <AdiosMundo/>
-      </header>
-      <Variables/>
-      
-    </div>
-  );
+return (
+<div className="App">
+<AppContext.Provider value={valoresDefecto}>
+<Encabezado />
+<div>Esto simplemente es contenido.</div>
+<Pie />
+</AppContext.Provider>
+</div>
+);
 }
-
 export default App;
