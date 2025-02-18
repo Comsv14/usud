@@ -1,7 +1,7 @@
 import './App.css';
-import Encabezado from './components/Encabezado';
-import Pie from './components/Pie';
-import { AppContext, valoresDefecto } from './AppContext';
+import Encabezado from '../../nombre-del-proyecto/src/components/Encabezado';
+import Pie from '../../nombre-del-proyecto/src/components/Pie';
+import { AppContext, valoresDefecto } from '../../nombre-del-proyecto/src/AppContext';
 function App() {
 return (
 <div className="App">
