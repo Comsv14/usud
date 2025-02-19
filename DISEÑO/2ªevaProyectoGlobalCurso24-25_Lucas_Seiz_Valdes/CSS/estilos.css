@@ -1,0 +1,141 @@
+/* GENERAL */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fff8e1;
+  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  color: #333;
+}
+
+/* MENÚ DE NAVEGACIÓN */
+nav {
+  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  background-color: #bf360c;
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 3px solid #81c784;
+  border-top: 3px solid #81c784;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #81c784;
+}
+
+nav ul li a:active {
+  color: #fbc02d;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.container {
+  margin-top: 20px;
+}
+
+/* SECCIONES */
+section {
+  background-color: #fbe9e7;
+  padding: 20px;
+  border: 1px solid #81c784; /* Tono verde */
+  border-top: 3px solid #81c784;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+section h2 {
+  text-align: center;
+  color: #c62828;
+}
+
+/* ASIDE */
+.aside-content {
+  background-color: #ffe0b2;
+  padding: 20px;
+  border: 1px solid #81c784; 
+  border-top: 3px solid #81c784;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 200px; 
+}
+
+
+.aside-content h2, h3 {
+  color: #bf360c;
+  margin: 0; 
+}
+
+/* Imagen dentro de aside */
+.aside-content a img {
+  border: 3px solid #000;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  max-width: 90%; 
+  height: auto;
+}
+
+.aside-content a img:hover {
+  border-color: #81c784;
+}
+
+/* PIE DE PÁGINA */
+footer {
+  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+  border-top: 3px solid #81c784;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* IMÁGENES RESPONSIVAS */
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 992px) {
+  .container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  section, aside {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    font-size: 0.9em;
+  }
+}
