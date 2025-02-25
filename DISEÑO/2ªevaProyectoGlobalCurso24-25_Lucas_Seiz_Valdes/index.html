@@ -6,6 +6,16 @@
   <title>Año Nuevo Chino</title>
   <link rel="icon" href="Imagenes y Videos/logo.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/estilos.css">
+  <style>
+    /* Estilo para el borde verde */
+    .borde-verde {
+      border: 3px solid #81c784;
+      border-radius: 10px; /* Bordes redondeados opcionales */
+      padding: 15px; /* Espaciado interior */
+      margin-bottom: 20px; /* Separación entre elementos */
+    }
+  </style>
 </head>
 <body>
     <header class="text-center bg-danger text-white py-3">
@@ -21,8 +31,8 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link text-white" href="#seccion1">Origen y Significado</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#seccion2">Últimos Años</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#seccion3">Tradiciones</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="Portfolio/ultimos_años.html">Últimos Años</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="Portfolio/tradiciones.html">Tradiciones</a></li>
                 </ul>
             </div>
         </div>
@@ -31,7 +41,7 @@
   <div class="container my-4">
     <div class="row">
       <div class="col-md-8">
-        <section id="seccion1" class="mb-4" class="text-justify" >
+        <section id="seccion1" mb-4 text-justify">
           <h2 class="text-center">Origen y Significado</h2>
           <p>El Año Nuevo Chino, también conocido como el <strong>Festival de Primavera</strong> (<em>春节, Chūn Jié</em>), tiene su origen en las antiguas tradiciones chinas basadas en el calendario lunar. Su fecha varía cada año, ya que se celebra el primer día del primer mes del calendario lunar chino, que generalmente cae entre el 21 de enero y el 20 de febrero.</p>
           <p>El origen de la celebración está ligado a una leyenda sobre una bestia mítica llamada <strong>Nian</strong>, que aterrorizaba a las aldeas al final del invierno. Según la leyenda, Nian temía el color rojo, los ruidos fuertes y las luces brillantes. Por eso, durante la celebración, las personas decoran sus hogares con rojo, lanzan fuegos artificiales y tocan tambores para ahuyentar al monstruo y asegurar un buen año.</p>
@@ -39,78 +49,57 @@
           <p>El <strong>significado del Año Nuevo Chino</strong> está asociado con la renovación, el comienzo de un nuevo ciclo y la esperanza de prosperidad, salud y felicidad para el año que comienza. Es un momento para reunirse con la familia, rendir homenaje a los antepasados, limpiar la casa para alejar las malas energías, y hacer ofrendas para atraer buena suerte.</p>
           <h3 class="text-center">Zodiaco Chino</h3>
           <p>Cada año se asocia con un <strong>animal del zodiaco chino</strong>, y cada uno de estos animales tiene su propio significado y características, reflejando aspectos de la personalidad y el destino de las personas nacidas bajo ese signo.</p>
-          <img src="Imagenes y Videos/cartel.jpeg" class="img-fluid" class="img-responsive inline-block">
-        </section>
-
-        <section id="seccion2">
-          <h2 class="text-center">Últimos Años e Información del Año Nuevo Chino</h2>
-          <p>El Año Nuevo Chino es una de las celebraciones más importantes en la cultura china, marcando el inicio de un nuevo ciclo según el calendario lunar. En los últimos años, cada uno tiene un animal del zodiaco chino asociado, formando un ciclo de 12 años. El <strong>2024</strong> es el <em>Año del Dragón de Madera</em>, un año simbolizado por el poder, la vitalidad y el impulso para nuevos proyectos.</p>
-          <ul>
-            <li><strong>2024:</strong> Año del Dragón de Madera</li>
-            <li><strong>2023:</strong> Año del Conejo de Agua</li>
-            <li><strong>2022:</strong> Año del Tigre de Agua</li>
-            <li><strong>2021:</strong> Año del Buey de Metal</li>
-            <li><strong>2020:</strong> Año de la Rata de Metal</li>
-          </ul>
-          <h3 class="text-center">Impacto Global Reciente</h3>
-          <p>En los últimos años, el Año Nuevo Chino ha adquirido mayor proyección mundial. Aunque las restricciones por la pandemia en 2020 y 2021 afectaron las celebraciones, las festividades virtuales y en línea permitieron mantener vivas las tradiciones. Las ciudades de todo el mundo han comenzado a incorporar celebraciones más grandes y públicas, lo que ha atraído tanto a turistas como a locales, ayudando a difundir aún más la cultura china.</p>
+         
           
-          <h3 class="text-center">Tradiciones que Perduran</h3>
-          <p>A pesar de los desafíos, las festividades han regresado con fuerza. La tradicional danza del dragón, desfiles y grandes reuniones familiares siguen siendo el corazón de la celebración. Cada año se siguen practicando costumbres como la limpieza de la casa, las decoraciones rojas, los fuegos artificiales, las cenas familiares, y el intercambio de sobres rojos (hongbao), que son un símbolo de prosperidad.</p>
-          <p>Este año, el <strong>Año del Dragón de Madera</strong>, se celebra con una gran resonancia debido a la importancia cultural del dragón en la tradición china. Es un año lleno de esperanza y nuevas oportunidades para aquellos que siguen el zodiaco chino.</p>
-          <img src="Imagenes y Videos/sello.jpeg" class="img-fluid">
-        </section>
+         <!-- Carrusel Bootstrap 5 -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
 
-        <section id="seccion3">
-          <h2 class="text-center">Tradiciones y Costumbres durante esta festividad</h2>
-          <ul>
-            <li><strong>Limpieza de la casa:</strong> Antes de la llegada del nuevo año, las familias limpian a fondo sus hogares. Esta limpieza simboliza la eliminación de las malas energías y la bienvenida de la buena suerte.</li>
-            <li><strong>Decoraciones rojas:</strong> Durante las festividades, es común ver decoraciones rojas, como faroles, carteles y sobre todo los "couplets" o versos en rojo que se colocan en las puertas. El rojo es considerado un color de buena suerte que ahuyenta a los malos espíritus.</li>
-            <li><strong>Fuegos artificiales y petardos:</strong> La tradición de hacer ruidos fuertes con fuegos artificiales y petardos tiene su origen en la leyenda de la bestia Nian, que temía los ruidos fuertes. Además de alejar a los espíritus malignos, los fuegos artificiales también simbolizan la celebración.</li>
-            <li><strong>Cena de Nochevieja y comidas especiales:</strong> En la víspera del Año Nuevo Chino, las familias se reúnen para una cena abundante. Los platos servidos tienen significados simbólicos, como el pescado (para la abundancia), los dumplings (para la prosperidad) y los pasteles de arroz glutinoso (para la buena suerte).</li>
-            <li><strong>Rojo y oro en los "hongbao":</strong> Se entregan sobres rojos (hongbao) con dinero, como símbolo de suerte y bendiciones para el nuevo año. Este gesto se realiza especialmente entre los mayores hacia los más jóvenes, así como entre empleadores y empleados.</li>
-            <li><strong>Danza del Dragón y el León:</strong> Estas danzas tradicionales se realizan en las calles y son muy populares durante las celebraciones del Año Nuevo Chino. El dragón simboliza el poder y la buena suerte, mientras que el león es utilizado para espantar los malos espíritus.</li>
-          </ul>
-          <img src="Imagenes y Videos/tradicciones.webp" class="img-fluid">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="Imagenes y Videos/cartel.jpeg" class="d-block w-100 img-fluid" alt="Cartel publicitario">
+    </div>
+    <div class="carousel-item">
+      <img src="Imagenes y Videos/tigre.avif" class="d-block w-100 img-fluid" alt="Imagen de un tigre">
+    </div>
+    <div class="carousel-item">
+      <img src="Imagenes y Videos/Gentedefiesta.jpg" class="d-block w-100 img-fluid" alt="Horóscopo ilustrado">
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
+</div>
         </section>
       </div>
 
-      <div class="col-md-4" class="text-center">
-        <aside class="aside-content text-center">
+      <div class="col-md-4">
+        <aside class="aside-content borde-verde text-center">
           <h2>Noticias y Enlaces</h2>
-          <p>¿Qué animal eres? ¡Haz clic aquí!</p>
-          <a href="Imagenes y Videos/horoscopo.webp">
-            <img src="Imagenes y Videos/animales.jpg" class="img-fluid">
-          </a>
-          
-          <h3>Madrid: </h3>
-          <p>¡Si eres de Madrid esto te interesará!</p>
-          <a href="https://madridchino.com/" target="_blank">
-            <img src="Imagenes y Videos/madrid.jpg" class="img-fluid">
-          </a>
-          
-          <h3>Página Oficial: </h3>
-          <p>¡No te pierdas la página oficial del Año Nuevo Chino!</p>
-          <a href="https://chinesenewyear.net/" target="_blank">
-            <img src="Imagenes y Videos/dragonverde.jfif" class="img-fluid">
-          </a>
-          
-          <h3>Planes: </h3>
-          <p>¡Aquí tienes los 10 mejores planes para hacer en el Año Nuevo Chino!</p>
-          <a href="https://www.civitatis.com/blog/planes-ano-nuevo-chino/?srsltid=AfmBOorY2v8G2DhX1PWyqEAaWg87dfYIya-AwRfxf2aK-CvE-mxH45bx" target="_blank">
-            <img src="Imagenes y Videos/dragoncabeza.webp" class="img-fluid">
-          </a>
-          
-          <h3>Video:</h3>
-            <p>Aquí puedes ver por qué es la fiesta más importante de China, ¡espero que lo disfrutes!</p>
-            <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/k6hSlcbzHAI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="card shadow-lg rounded-4" style="width: 20rem; margin: auto;">
+            <img src="Imagenes y Videos/animales.jpg" class="card-img-top rounded-top-4" alt="Horóscopo Chino">
+            <div class="card-body text-center">
+                <h5 class="card-title fw-bold">Horóscopo Chino</h5>
+                <p class="card-text">Descubre qué animal del horóscopo chino te representa según tu año de nacimiento.</p>
+                <a href="Imagenes_y_Videos/horoscopo.webp" class="btn btn-primary rounded-pill shadow-sm">¿Qué animal eres? ¡Descúbrelo!</a>
             </div>
-          <h3>Más Información: </h3>
-          <p>Si quieres más información puedes consultar aquí: </p>
-          <a href="https://altalingua.es/ano-nuevo-chino/" target="_blank">
-            <img src="Imagenes y Videos/masinfo.png" class="img-fluid">
-          </a>
+        </div>
+          <h3>Video:</h3>
+          <p>Aquí puedes ver por qué es la fiesta más importante de China, ¡espero que lo disfrutes!</p>
+          <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/k6hSlcbzHAI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
         </aside>
       </div>
     </div>

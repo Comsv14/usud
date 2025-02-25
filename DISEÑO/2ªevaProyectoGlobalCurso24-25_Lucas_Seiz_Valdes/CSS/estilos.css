@@ -4,13 +4,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fff8e1;
-  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  background-image: url("../Imagenes y Videos/");
   color: #333;
 }
 
 /* MENÚ DE NAVEGACIÓN */
 nav {
-  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  background-image: url("../Imagenes y Videos/fondo1.avif");
   background-color: #bf360c;
   text-align: center;
   padding: 10px 0;
@@ -96,7 +96,7 @@ section h2 {
 
 /* PIE DE PÁGINA */
 footer {
-  background-image: url("../Imagenes y Videos/fondo1.jpg");
+  background-image: url("../Imagenes y Videos/fondo3.avif");
   color: #fff;
   text-align: center;
   padding: 10px 0;
@@ -138,4 +138,7 @@ img {
   footer {
     font-size: 0.9em;
   }
+}
+.navbar-brand:hover span {
+  transform: scale(1.1);
 }
