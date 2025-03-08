@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD en JavaScript sin JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, button {
+            padding: 8px;
+            margin-right: 5px;
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD en JavaScript sin JSON</h1>
+
+    <!-- Formulario para CRUD -->
+    <form id="crudForm">
+        <div class="form-group">
+            <label for="id">ID:</label>
+            <input type="number" id="id" placeholder="ID del elemento" required>
+        </div>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" placeholder="Nombre del elemento" required>
+        </div>
+        <div class="form-group">
+            <label for="completed">Completado:</label>
+            <input type="checkbox" id="completed">
+        </div>
+        <button type="button" onclick="createItemFromForm()">Crear</button>
+        <button type="button" onclick="updateItemFromForm()">Actualizar</button>
+        <button type="button" onclick="deleteItemFromForm()">Eliminar</button>
+    </form>
+
+    <button onclick="displayItems()">Leer Elementos</button>
+
+    <!-- Tabla para mostrar elementos -->
+    <table id="itemsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Completado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se insertarán las filas dinámicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        // Inicializar datos si no existen
+        if (!localStorage.getItem("items")) {
+            localStorage.setItem("items", "[]"); // Lista vacía inicial
+        }
+
+        // Crear elemento desde el formulario
+        function createItemFromForm() {
+            const id = parseInt(document.getElementById("id").value);
+            const name = document.getElementById("name").value;
+            const completed = document.getElementById("completed").checked;
+
+            createItem(id, name, completed);
+            displayItems();
+        }
+
+        // Actualizar elemento desde el formulario
+        function updateItemFromForm() {
+            const id = parseInt(document.getElementById("id").value);
+            const name = document.getElementById("name").value;
+            const completed = document.getElementById("completed").checked;
+
+            updateItem(id, name, completed);
+            displayItems();
+        }
+
+        // Eliminar elemento desde el formulario
+        function deleteItemFromForm() {
+            const id = parseInt(document.getElementById("id").value);
+
+            deleteItem(id);
+            displayItems();
+        }
+
+        // Mostrar elementos en la tabla
+        function displayItems() {
+            const items = readItems();
+            const tableBody = document.getElementById("itemsTable").querySelector("tbody");
+
+            // Limpiar tabla
+            tableBody.innerHTML = "";
+
+            // Agregar filas
+            items.forEach(item => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.completed ? "Sí" : "No"}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // CRUD Funciones
+
+        // Crear un nuevo item
+        function createItem(id, name, completed) {
+            const items = readItems();
+
+            // Verificar si el ID ya existe
+            if (items.some(item => item.id === id)) {
+                alert("El ID ya existe. Usa otro.");
+                return;
+            }
+
+            const newItem = `id:${id},name:${name},completed:${completed}`;
+            items.push(newItem);
+            localStorage.setItem("items", items.join("|"));
+        }
+
+        // Leer los items almacenados
+        function readItems() {
+            const items = localStorage.getItem("items");
+            if (!items) return [];
+
+            // Convertir cada cadena de vuelta a un objeto
+            return items.split("|").map(item => {
+                const parts = item.split(",");
+                const id = parseInt(parts[0].split(":")[1]);
+                const name = parts[1].split(":")[1];
+                const completed = parts[2].split(":")[1] === "true";
+
+                return { id, name, completed };
+            });
+        }
+
+        // Actualizar un item
+        function updateItem(id, name, completed) {
+            const items = readItems();
+            const index = items.findIndex(item => item.id === id);
+
+            if (index !== -1) {
+                items[index] = `id:${id},name:${name},completed:${completed}`;
+                localStorage.setItem("items", items.join("|"));
+            } else {
+                alert("Elemento no encontrado");
+            }
+        }
+
+        // Eliminar un item
+        function deleteItem(id) {
+            let items = readItems();
+            items = items.filter(item => item.id !== id);
+            localStorage.setItem("items", items.map(item => `id:${item.id},name:${item.name},completed:${item.completed}`).join("|"));
+        }
+
+        // Mostrar los elementos al cargar la página
+        displayItems();
+    </script>
+</body>
+</html>

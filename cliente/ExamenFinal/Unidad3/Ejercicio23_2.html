@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let datos= ['gato','perro','conejo','gallina','tarantula'];
+        let nuevosDatos= [];
+        for (let i = 0; i < datos.length-1; i++) {
+            nuevosDatos[i] = datos[i];
+        }
+        document.write(nuevosDatos.join(", "),"</br>");
+        datos.pop();
+        document.write(datos.join(", "));        
+    </script>
+</body>
+</html>

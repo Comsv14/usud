@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--
+    Realiza un ejercicio mediante funciones y trabajando con el objeto Date, que muestre por pantalla: 
+    La fecha actual 
+    La fecha del fin del mundo maya (21/11/2012) 
+    El número de días o el número de segundos que han pasado de esa fecha.
+-->
+    <script>
+        function mostrarFecha() {
+            let fechaActual = new Date();
+            let fechaFinMundoMaya = new Date(2012, 10, 21);
+            let diferencia = fechaActual - fechaFinMundoMaya;
+            let dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            let segundos = Math.floor(diferencia / 1000);//Math.floor Se utiliza para redondear un número decimal hacia abajo al entero más cercano.
+            document.write("La fecha actual es: " + fechaActual + "<br>");
+            document.write("La fecha del fin del mundo maya (21/11/2012) es: " + fechaFinMundoMaya + "<br>");
+            document.write("El número de días que han pasado de esa fecha es: " + dias + "<br>");
+            document.write("El número de segundos que han pasado de esa fecha es: " + segundos + "<br>");
+        }
+        mostrarFecha();
+    </script>
+</body>
+</html>

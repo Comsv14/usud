@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //verifica si es multiplode 3
+        function esMultiploDeTres(numero) {
+            return numero % 3 === 0;
+        }
+        function verificarMultiploDeTres() {
+            let repetir = true;//si repetir es true entrar en el while
+            while (repetir) {
+                let input = prompt("Introduce un número para verificar si es múltiplo de 3:");
+                let numero = parseInt(input, 10);
+                if (isNaN(numero)) {
+                    alert("Por favor, introduce un número válido.");
+                } else {
+                    if (esMultiploDeTres(numero)) {
+                        alert(`${numero} es múltiplo de 3.`);
+                    } else {
+                        alert(`${numero} no es múltiplo de 3.`);
+                    }
+                }
+            
+                let respuesta = prompt("¿Quieres verificar otro número? (sí/no):").toLowerCase();
+                if (respuesta !== "sí" && respuesta !== "si") {
+                    repetir = false;
+                }
+            }
+
+            alert("FIN");
+        }
+        verificarMultiploDeTres();
+    </script>
+</body>
+</html>

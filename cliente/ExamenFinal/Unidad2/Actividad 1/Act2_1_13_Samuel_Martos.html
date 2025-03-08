@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Realiza una aplicación que pida al usuario el precio de un producto sin el IVA y el IVA a aplicar, 
+        //calculando el precio total a pagar.
+        let precio=prompt('Introduce el precio del producto: ');
+        precio = parseFloat(precio);
+        //IVA 21%
+        let iva=(precio*0.21)+precio;
+        iva=parseFloat(iva);
+            document.write("El precio del producto sera de: ",iva);
+    </script>
+</body>
+</html>

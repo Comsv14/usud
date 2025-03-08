@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer un programa que permita introducir un carácter y mediante una función compruebe si es un 
+carácter  alfabético.  Realizar  depuración  de  dato,  para  garantizar  que  se  introduce  una  letra, 
+visualizando un mensaje de alerta en caso contrario. -->
+    <script>
+        let char = prompt("Introduce un caracter");
+        if (char >= 'a' && char <= 'z' || char >= 'A' && char <= 'Z') {//recorrer desde "a" a la "z"
+            alert("Es un caracter alfabético");
+        } else {
+            alert("No es un caracter alfabético");
+        }
+    </script>
+</body>
+</html>

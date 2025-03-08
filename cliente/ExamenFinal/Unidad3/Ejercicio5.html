@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Generar en pantalla un Array con los 25 primeros naturales y su factorial -->
+    <script>
+        function ejercicio(){
+            function calcularFactorial(n) {
+                if (n === 0 || n === 1) {
+                    return 1; //el factorial de 0 o 1 es 1
+                }
+                let resultado = 1;
+                for (let i = 2; i <= n; i++) {
+                    resultado *= i;
+                }
+                return resultado;
+            }
+            let numerosYFactoriales = [];
+            for (let i = 1; i <= 25; i++) {
+                let factorial = calcularFactorial(i);
+                numerosYFactoriales.push({numero: i, factorial: factorial});
+            }
+            //visualizar resultado
+            document.write("<h2>Primeros 25 números naturales y sus factoriales:</h2>");
+            document.write("<ul>");
+            for (let i = 0; i < numerosYFactoriales.length; i++) {
+                document.write("<li> Número: " + numerosYFactoriales[i].numero + " - Factorial: " + numerosYFactoriales[i].factorial + "</li>");
+            }
+            document.write("</ul>");
+        }
+        ejercicio();
+    </script>
+</body>
+</html>

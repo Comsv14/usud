@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Pedidos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>MaderAvilés - Carpintería</h1>
+    <nav>
+      <ul>
+        <li><a href="pedidos.html">Gestión de Pedidos</a></li>
+        <li><a href="piezas.html">Gestión de Piezas</a></li>
+        <li><a href="detallePedido.html">Detalle de Pedido</a></li>
+      </ul>
+    </nav>
+  </header>
+  <h1>Gestión de Piezas</h1>
+  <form id="piezaForm">
+    <label>Número de Pieza: <input type="number" id="numeroPieza" min="1" required></label><br>
+    <label>Número de Pedido: <input type="number" id="numeroPedidoPieza" min="1" required></label><br>
+    <label>Largo (cm): <input type="number" id="largo" min="0.1" required></label><br>
+    <label>Ancho (cm): <input type="number" id="ancho" min="0.1" required></label><br>
+    <label>Grosor (cm): <input type="number" id="grosor" min="0.1" required></label><br>
+    <label>Color: <input type="text" id="color"></label><br>
+    <label>Ambas Caras: <input type="checkbox" id="ambasCaras"></label><br>
+    <label>Cortada: <input type="checkbox" id="cortada"></label><br>
+    <button type="submit">Guardar Pieza</button>
+  </form>
+  <div id="piezasLista"></div>
+</body>
+</html>

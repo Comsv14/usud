@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            Crear una clase (class) que incluya dos propiedades, “nombre” y “edad”.
+            Incluir una propiedad pública y otra privada.
+            Una variable publica y otra privada.
+            Un método público y otro privado.
+            Un getter y un setter.
+        */
+        class Persona {
+            //propiedad publica
+            nombre;
+
+            //propiedad privada
+            #edad;
+
+            //constructor
+            constructor(nombre, edad) {
+                this.nombre = nombre; 
+                this.#edad = edad;
+            }
+
+            //metodo publico
+            saludar() {
+                console.log(`Hola, mi nombre es ${this.nombre}.`);
+            }
+
+            //metodo privado
+            #esMayorDeEdad() {
+                return this.#edad >= 18;
+            }
+
+            //getter
+            get edad() {
+                return `Tienes ${this.#edad} años.`;
+            }
+
+            //setter para establecer la edad
+            set edad(nuevaEdad) {
+                if (nuevaEdad >= 0) {
+                    this.#edad = nuevaEdad;
+                } else {
+                    console.error("La edad no puede ser negativa.");
+                }
+            }
+
+            //metodo publico que usa el metodo privado
+            verificarMayorDeEdad() {
+                if (this.#esMayorDeEdad()) {
+                    console.log("Eres mayor de edad.");
+                } else {
+                    console.log("No eres mayor de edad.");
+                }
+            }
+        }//fin de la clase
+
+        //ejemplo de uso
+        const persona = new Persona("Juan", 20);
+
+        //acceso a propiedades publicas
+        console.log(persona.nombre); //juan
+
+        //uso del metodo publico
+        persona.saludar();
+
+        //uso del getter
+        console.log(persona.edad); //Tienes 20 años.
+
+        //uso del setter
+        persona.edad = 25; //cambia la edad
+        console.log(persona.edad); //tienes 25 años.
+
+        //intento de asignar una edad no valida
+        persona.edad = -5; //Error: La edad no puede ser negativa.
+
+        //uso del metodo publico que llama al metodo privado
+        persona.verificarMayorDeEdad();//eres mayor de edad.
+    </script>
+</body>
+</html>

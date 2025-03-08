@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.7.1.js'></script>
+</head>
+<body>
+    <p id="parrafo" name="ParrafoNombre"></p>
+
+    <form action="">
+        <label for="provide-address">¿Direccion?</label>
+        <input type="checkbox" id="provide-address">
+
+        <label for="street">Calle:</label>
+        <input type="text" id="street" disabled="true">
+
+        <label for="country">Pais:</label>
+        <input type="text" id="country" disabled="true">
+    </form>
+<script>
+$('#provide-address').nextAll('input').attr('disable', 'false')
+
+//$(elemento)
+//$('form')
+//$('#lblError')
+//$('.blue') nombre de la clase
+$('')
+</script>
+</body>
+</html>

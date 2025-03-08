@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer  un  programa  que  mediante  una  función  permita  introducir  un  carácter  de  operación  y  lo 
+depure. -->
+<script>
+    function introducirCaracter() {
+        while (true) {
+            const char1 = prompt("Introduce un caracter:");
+            if (!isNaN(char1) && char1 !== "") {
+                return parseString(char1);
+            } else {
+                console.error("Error: Debes introducir un caracter.");
+            }
+        }
+    }
+
+// Llamada a la función
+const char1 = introducirCaracter();
+console.log("Número introducido:", char1);
+</script>
+</body>
+</html>

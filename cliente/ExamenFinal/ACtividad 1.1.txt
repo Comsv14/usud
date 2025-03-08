@@ -1,0 +1,7 @@
+Para vincular un archivo JavaScript externo usando <script src="ruta">, se deben seguir estas reglas clave:
+-Ruta de acceso: Puede ser relativa o absoluta.
+-Seguridad (CORS): Si el archivo está en otro dominio, debe estar permitido por el servidor con CORS.
+-Orden de carga: Los scripts se cargan en el orden que aparecen, pero con defer se cargan de forma asíncrona y se ejecutan tras el HTML, y con async, se ejecutan de forma asíncrona en cuanto están listos.
+-Ubicación: Coloca los scripts justo antes de </body> para optimizar la carga de la página.
+-Caché: Los navegadores almacenan scripts en caché; el control de versiones ayuda a gestionarlo.
+Estas reglas garantizan eficiencia, seguridad y rendimiento al incluir archivos JavaScript.

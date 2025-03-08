@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+        Realizar  un  ejercicio  que  permita  realizar  la  división  de  dos  números  mediante  restas  sucesivas, 
+        mostrando el cociente y el resto.
+        */
+            let dividendo = prompt("Introduce el dividendo",'');
+            dividendo = parseInt(dividendo);
+            let divisor = prompt("Introduce el divisor",'')
+            divisor =parseInt(divisor);
+            if (dividendo<divisor)
+                alert('El dividendo debe ser superior al divisor');
+                else if(divisor<=0){
+                    alert("El divisor no puede ser negativo o 0")
+                }
+                else{     
+                    let x = dividendo;
+                    let contador=0;
+
+                    while (x>=divisor) {
+                        x-=divisor;
+                        contador++;
+                    }
+                    document.write('La division de ',dividendo,' divisor ',' da como cociente ',contador,' y como resto ',x)
+                }
+    </script>
+</body>
+</html>

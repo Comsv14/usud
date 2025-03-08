@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer  un  programa  mediante  una  función  que  permita  calcular  la  suma  de  dos  valores  que  se 
+introducen por teclado. Visualizar el resultado en el cuerpo de la página Web. -->
+    <script>
+        function sumar() {
+            let num1 = parseInt(prompt("Introduce el primer número:"));
+            let num2 = parseInt(prompt("Introduce el segundo número:"));
+            let resultado = num1 + num2;
+            document.write("El resultado de la suma es: " + resultado);
+        }
+    </script>
+    <button onclick="sumar()">Sumar</button>
+</body>
+</html>

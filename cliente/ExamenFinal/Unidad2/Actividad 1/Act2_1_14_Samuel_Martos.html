@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer un programa que pida un número, luego pide a tu compañero que intente adivinarlo. Tienes 
+5 oportunidades. Utiliza la sentencia break para salir del bucle si lo adivina antes -->
+<script>
+    let n1 = prompt("Introduce un numero");
+    for (let i = 1; i <= 5; i++) {
+        let n2 = prompt("Adivina el numero");
+        if (n1 == n2) {
+            document.write("Felicidades, has adivinado el numero");
+            break;
+        }
+    }
+</script>
+</body>
+</html>

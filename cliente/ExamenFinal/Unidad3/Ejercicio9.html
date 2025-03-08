@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Hacer un programa que mediante una función permita introducir un número y haga depuración de 
+datos de entrada. -->
+    <script>
+        function introducirNumero() {
+            while (true) {
+                const numero = prompt("Introduce un número:");
+                if (!isNaN(numero) && numero !== "") {
+                    return parseInt(numero);
+                } else {
+                    console.error("Error: Debes introducir un número entero.");
+                }
+            }
+        }
+
+    // Llamada a la función
+    const numero = introducirNumero();
+    console.log("Número introducido:", numero);
+</script>
+</body>
+</html>
