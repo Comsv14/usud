@@ -6,7 +6,7 @@ import MasPopular from './MasPopular';
 function SpotiMain() {
   const [canciones, setCanciones] = useState([]);
 
-  // Función asíncrona para obtener las canciones del JSON
+  // Función asíncrona para obtener las canciones del JSON hacer siempre para obtener los datos del json
   useEffect(() => {
                         async function fetchCanciones() {
                           try {
@@ -21,7 +21,7 @@ function SpotiMain() {
                         fetchCanciones();
                 }, []
             );
-
+/*hasta aqui(el useEffect)*/
   return (
     <div>
       <h1>SpotifEx</h1>
