@@ -1,0 +1,177 @@
+A continuación te explico paso a paso qué se te pide y cómo debes organizar tu aplicación para cumplir con el enunciado:
+
+────────────────────────────── 1. Componente SpotiMain (2 puntos)
+
+Qué se pide:
+Debes crear un componente principal llamado SpotiMain. Este será el “contenedor” de todos los demás componentes de la aplicación y es el que se renderizará inicialmente cuando se abra la app.
+
+Qué hacer:
+
+Crear un fichero (por ejemplo, SpotiMain.js) y definir un componente funcional.
+Dentro de este componente se gestionará la carga de datos (ver punto 2) y se incluirán los otros componentes como hijos.
+Organizarlo de manera que el componente principal renderice un encabezado (por ejemplo, “SpotifEx”) y luego llame a los componentes que muestran la lista, el filtrado y la canción más popular.
+Asegúrate de importar y utilizar correctamente los demás componentes.
+────────────────────────────── 2. Función asíncrona para obtener las canciones (2 puntos)
+
+Qué se pide:
+Dentro de SpotiMain, debes crear una función asíncrona que obtenga un array con todas las canciones a partir de un archivo JSON. La ruta para acceder a este JSON es /json/Spotify.json.
+
+Qué hacer:
+
+Define una función usando la sintaxis async que utilice fetch para realizar la petición a esa ruta.
+Una vez obtenida la respuesta, conviértela a formato JSON (usando await respuesta.json()) y guarda el resultado en una variable de estado (por ejemplo, con useState).
+Llama a esta función en un useEffect para que se ejecute cuando el componente se monte.
+De este modo, la colección de canciones quedará disponible para pasarla como prop a los demás componentes.
+────────────────────────────── 3. Componente ListadoCanciones (2,5 puntos)
+
+Qué se pide:
+Debes crear un componente llamado ListadoCanciones que muestre en forma tabular la lista completa de canciones. La tabla debe incluir las siguientes columnas:
+
+Id de la pista
+Nombre de la canción
+Artista
+Nombre del álbum
+Duración en segundos
+Qué hacer:
+
+El componente debe recibir la lista de canciones mediante una prop. Es importante desestructurar esa prop en la función (por ejemplo, ({ canciones })).
+Utiliza la función map para recorrer el array de canciones y generar una fila <tr> para cada canción, asegurándote de asignar una key única (usualmente el id).
+Estructura la tabla con un <thead> para los títulos de las columnas y un <tbody> para las filas generadas.
+Ejemplo de estructura:
+
+jsx
+Copiar
+const ListadoCanciones = ({ canciones }) => (
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Artista</th>
+        <th>Álbum</th>
+        <th>Duración (s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {canciones.map((cancion) => (
+        <tr key={cancion.id}>
+          <td>{cancion.id}</td>
+          <td>{cancion.nombre}</td>
+          <td>{cancion.artista}</td>
+          <td>{cancion.album}</td>
+          <td>{cancion.duracion}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+────────────────────────────── 4. Componente FiltradoCanciones (2,5 puntos)
+
+Qué se pide:
+Crea un componente llamado FiltradoCanciones que contenga un cuadro de texto. En ese cuadro, el usuario introducirá el nombre de un artista, y conforme se vaya modificando el valor, el componente deberá mostrar una lista (por ejemplo, un listado simple) con los títulos de las canciones que correspondan a ese artista.
+
+Qué hacer:
+
+Dentro de este componente, usa un state para almacenar el valor actual del input.
+Cada vez que el usuario escriba (evento onChange), actualiza el state.
+Usa la prop (el array completo de canciones) para filtrar aquellas canciones cuyo campo “artista” incluya el texto introducido (convierte ambos a minúsculas para evitar problemas de mayúsculas/minúsculas).
+Renderiza la lista filtrada, mostrando únicamente el título de cada canción.
+Ejemplo básico:
+
+jsx
+Copiar
+const FiltradoCanciones = ({ canciones }) => {
+  const [filtro, setFiltro] = useState("");
+
+  const cancionesFiltradas = canciones.filter(cancion =>
+    cancion.artista.toLowerCase().includes(filtro.toLowerCase())
+  );
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Nombre del artista"
+        value={filtro}
+        onChange={(e) => setFiltro(e.target.value)}
+      />
+      <ul>
+        {cancionesFiltradas.map(cancion => (
+          <li key={cancion.id}>{cancion.nombre}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+────────────────────────────── 5. Componente MasPopular (1 punto)
+
+Qué se pide:
+Debes crear un componente llamado MasPopular que muestre la canción más popular de la lista. Esta información se recibe a través de una prop con el array de canciones.
+
+Qué hacer:
+
+Suponiendo que el JSON de Spotify contiene un campo que indica la popularidad (por ejemplo, popularidad o similar), usa una función (como reduce) para identificar la canción con el valor más alto en ese campo.
+Si no existe ese campo, podrías definir un criterio (por ejemplo, la canción con mayor duración) o simplemente elegir la primera del array (aunque lo ideal es que el JSON tenga un indicador de popularidad).
+Una vez identificada, muestra sus datos clave (por ejemplo, título y artista) en un contenedor.
+Ejemplo básico (suponiendo un campo "popularidad"):
+
+jsx
+Copiar
+const MasPopular = ({ canciones }) => {
+  if (!canciones.length) return null;
+
+  const cancionPopular = canciones.reduce((max, cancion) =>
+    cancion.popularidad > max.popularidad ? cancion : max
+  );
+
+  return (
+    <div>
+      <h2>La Canción Más Popular</h2>
+      <p>{cancionPopular.nombre} - {cancionPopular.artista}</p>
+    </div>
+  );
+};
+────────────────────────────── Resumen del flujo de trabajo para la aplicación SpotifEx:
+
+Descargar el esqueleto:
+Baja el proyecto desde la URL proporcionada (https://bit.ly/spotifex) y colócalo en la carpeta de trabajo.
+
+Implementar SpotiMain:
+
+Crea el componente principal que cargará la información de canciones de forma asíncrona desde /json/Spotify.json.
+Usa useState para almacenar la colección y useEffect para llamar a la función de carga.
+Integrar los componentes secundarios:
+
+ListadoCanciones: Renderiza la tabla completa con los detalles de cada canción.
+FiltradoCanciones: Permite filtrar las canciones por artista y mostrar solo los títulos filtrados.
+MasPopular: Muestra la canción con mayor popularidad.
+Comunicación entre componentes:
+
+Pasa la lista de canciones obtenida en SpotiMain a cada uno de los componentes mediante props.
+Asegúrate de desestructurar la prop en cada componente para un manejo más limpio.
+Manejo de estado:
+
+Cada componente que requiera interacción (como el cuadro de texto para filtrar) debe usar variables de estado con useState.
+Pruebas y validación:
+
+Verifica que el JSON se carga correctamente y que cada componente renderiza los datos de forma adecuada.
+Asegúrate de que el filtrado funciona en tiempo real y que la canción más popular se calcula correctamente.
+────────────────────────────── Consejos adicionales para tenerlo bien hecho:
+
+Organización del código:
+Separa cada componente en su propio fichero. Esto mejora la mantenibilidad y legibilidad del proyecto.
+
+Buenas prácticas en React:
+Utiliza componentes funcionales, desestructura las props, y mantén el estado en los componentes adecuados.
+
+Errores y manejo de excepciones:
+Dentro de la función asíncrona para obtener las canciones, incluye un bloque try/catch para gestionar posibles errores en la carga de datos.
+
+Prueba la aplicación:
+Ejecuta la aplicación y asegúrate de que:
+
+Al iniciar se muestra la pantalla principal con el encabezado “SpotifEx”.
+La tabla de canciones aparece con todos los datos solicitados.
+El cuadro de filtrado reacciona en tiempo real y muestra los títulos filtrados.
+Se muestra la información de la canción más popular.
+Si sigues estos pasos y prestas atención a cada uno de los puntos, tendrás una aplicación organizada y que cumple con todos los requisitos del examen. ¡Éxito!
